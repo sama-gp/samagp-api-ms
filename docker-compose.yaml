@@ -1,0 +1,27 @@
+# 💌
+#🌿
+#🌷🧷🧸
+services:
+  db:
+    image: postgres:13
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: samagp
+      POSTGRES_PASSWORD: samagp
+      POSTGRES_DB: samagp
+    ports:
+      - "5432:5432"
+#    command:
+#      - sh
+#      -
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - samagp-network
+
+volumes:
+  postgres_data:
+
+networks:
+  samagp-network:
+    driver: bridge

@@ -11,9 +11,6 @@ services:
       POSTGRES_DB: samagp
     ports:
       - "5432:5432"
-#    command:
-#      - sh
-#      -
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

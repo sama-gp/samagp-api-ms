@@ -60,7 +60,7 @@ pipeline {
             echo 'Deployment Successful! 🎉'
         }
         failure {
-            echo 'Build Failed! ❌'
+            echo 'Builds Failed! ❌'
         }
     }
 }

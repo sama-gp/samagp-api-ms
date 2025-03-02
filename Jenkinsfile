@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = "samagp-annonce-api-ms"
-        DOCKER_REGISTRY = "samagp"
-        CONTAINER_NAME = "Sama-GP"
-    }
+ //   environment {
+   //     DOCKER_IMAGE = "samagp-annonce-api-ms"
+  //      DOCKER_REGISTRY = "samagp"
+  //      CONTAINER_NAME = "Sama-GP"
+  //  }
 
     stages {
         stage('Checkout Code') {
@@ -25,7 +25,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
-
+/*
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t ${DOCKER_IMAGE}:latest .'
@@ -49,7 +49,7 @@ pipeline {
                 docker run -d --name ${CONTAINER_NAME} -p 8080:8080 ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:latest
                 '''
             }
-        }
+        }*/
     }
 
     post {

@@ -10,7 +10,9 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'develop', url: 'https://github.com/sama-gp/samagp-api-ms.git'
+                git branch: 'develop',
+                    credentialsId: '9c33aab2-46ee-4c99-ada0-92dbe6f31151',
+                    url: 'https://github.com/sama-gp/samagp-api-ms.git'
             }
         }
 

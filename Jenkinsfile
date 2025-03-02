@@ -1,6 +1,10 @@
 pipeline {
     agent any
-
+parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'develop', description: 'Git branch to build')
+        choice(name: 'DEPLOY_ENV', choices: ['dev', 'staging', 'prod'], description: 'Deployment environment')
+        booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run tests before deploying')
+    }
  //   environment {
    //     DOCKER_IMAGE = "samagp-annonce-api-ms"
   //      DOCKER_REGISTRY = "samagp"
@@ -10,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'develop',
+                git branch: "${params.BRANCH_NAME}",
                     credentialsId: '9c33aab2-46ee-4c99-ada0-92dbe6f31151',
                     url: 'https://github.com/sama-gp/samagp-api-ms.git'
             }
@@ -23,10 +27,14 @@ pipeline {
         }
 
         stage('Run Tests') {
+            when {
+               expression { return params.RUN_TESTS }
+            }
             steps {
                 sh 'mvn test'
             }
         }
+
 /*
         stage('Build Docker Image') {
             steps {
@@ -52,6 +60,22 @@ pipeline {
                 '''
             }
         }*/
+        stage('Deploy') {
+             steps {
+                 script {
+                      if (params.DEPLOY_ENV == 'dev') {
+                          echo 'Deploying to DEV environment...'
+                        //  sh './deploy-dev.sh'
+                      } else if (params.DEPLOY_ENV == 'staging') {
+                          echo 'Deploying to STAGING environment...'
+                         //  sh './deploy-staging.sh'
+                      } else if (params.DEPLOY_ENV == 'prod') {
+                           echo 'Deploying to PRODUCTION...'
+                        // sh './deploy-prod.sh'
+                       }
+                 }
+             }
+        }
     }
 
     post {

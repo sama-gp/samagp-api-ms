@@ -1,11 +1,11 @@
  @Library ('sama_gp') _  // charger plugins depuit git
  pipeline {
     agent any
-parameters {
-        string(name: 'BRANCH_NAME', defaultValue: 'develop', description: 'Git branch to build')
-        choice(name: 'DEPLOY_ENV', choices: ['dev', 'staging', 'prod'], description: 'Deployment environment')
-        booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run tests before deploying')
-    }
+    parameters {
+            string(name: 'BRANCH_NAME', defaultValue: 'develop', description: 'Git branch to build')
+            choice(name: 'DEPLOY_ENV', choices: ['dev', 'staging', 'prod'], description: 'Deployment environment')
+            booleanParam(name: 'RUN_TESTS', defaultValue: true, description: 'Run tests before deploying')
+        }
  //   environment {
    //     DOCKER_IMAGE = "samagp-annonce-api-ms"
   //      DOCKER_REGISTRY = "samagp"
@@ -16,7 +16,7 @@ parameters {
         stage('Run Groovy from git library'){
         steps{
             script{
-                buildDockerImage('Sama-gp-image', 'sama-gp-dockerfile')
+                buildDockerImage('Sama-gp-annonce-image', 'Dockerfile')
                 }
             }
         }

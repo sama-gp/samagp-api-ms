@@ -16,7 +16,7 @@
         stage('Run Groovy from git library'){
         steps{
             script{
-                buildDockerImage('Sama-gp-annonce-image', 'Dockerfile')
+                buildDockerImage('sama-gp-annonce-image', 'Dockerfile')
                 }
             }
         }

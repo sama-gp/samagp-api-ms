@@ -1,4 +1,4 @@
- @Library ('sama_gp')
+ @Library ('sama_gp') _  // charger plugins depuit git
  pipeline {
     agent any
 parameters {

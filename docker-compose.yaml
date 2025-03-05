@@ -16,9 +16,25 @@ services:
     networks:
       - samagp-network
 
+  annonce-ms:
+    build: ./annonce-ms
+    container_name: annonce-ms
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/samagp
+      SPRING_DATASOURCE_USERNAME: samagp
+      SPRING_DATASOURCE_PASSWORD: samagp
+    networks:
+      - samagp-network
+
 volumes:
   postgres_data:
 
 networks:
   samagp-network:
     driver: bridge
+

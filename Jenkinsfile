@@ -1,4 +1,5 @@
-pipeline {
+ @Library ('sama_gp')
+ pipeline {
     agent any
 
  //   environment {
@@ -8,6 +9,13 @@ pipeline {
   //  }
 
     stages {
+        stage('Run Groovy from git library'){
+        steps{
+            script{
+                buildDockerImage('Sama-gp-image', 'sama-gp-dockerfile')
+                }
+            }
+        }
         stage('Checkout Code') {
             steps {
                 git branch: 'develop', url: 'https://github.com/sama-gp/samagp-api-ms.git'

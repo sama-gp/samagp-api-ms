@@ -1,4 +1,5 @@
-pipeline {
+ @Library ('sama_gp')
+ pipeline {
     agent any
 parameters {
         string(name: 'BRANCH_NAME', defaultValue: 'develop', description: 'Git branch to build')
@@ -12,6 +13,13 @@ parameters {
   //  }
 
     stages {
+        stage('Run Groovy from git library'){
+        steps{
+            script{
+                buildDockerImage('Sama-gp-image', 'sama-gp-dockerfile')
+                }
+            }
+        }
         stage('Checkout Code') {
             steps {
                 git branch: "${params.BRANCH_NAME}",

@@ -14,7 +14,7 @@
  environment {
         REMOTE_HOST = "192.168.56.11"
         REMOTE_USER = "vagrant"
-        REMOTE_DIR = "/home/vagrant/deploy/samagp"
+        REMOTE_DIR = "/home/vagrant/deploy/samagp5"
         JAR_FILE = "samagp-api-ms-0.0.1-SNAPSHOT.jar"
         SSH_CREDENTIAL_ID = "vagrant-ssh-key"  // Replace with the correct credential ID
     }

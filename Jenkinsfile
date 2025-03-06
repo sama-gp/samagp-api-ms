@@ -11,6 +11,13 @@
   //      DOCKER_REGISTRY = "samagp"
   //      CONTAINER_NAME = "Sama-GP"
   //  }
+ environment {
+        REMOTE_HOST = "192.168.56.11"
+        REMOTE_USER = "vagrant"
+        REMOTE_DIR = "/home/vagrant/deploy/samagp"
+        JAR_FILE = "samagp-api-ms-0.0.1-SNAPSHOT.jar"
+        SSH_CREDENTIAL_ID = "vagrant-ssh-key"  // Replace with the correct credential ID
+    }
 
     stages {
         stage('Run Groovy from git library'){
@@ -71,7 +78,16 @@
         stage('Deploy') {
              steps {
                  script {
-                    deployOnWorker()
+                 sshagent([SSH_CREDENTIAL_ID]) {
+                                         def sshCommand = """
+                                         ssh ${REMOTE_USER}@${REMOTE_HOST} '
+                                             mkdir -p ${REMOTE_DIR} &&
+                                             cp ${JAR_FILE} ${REMOTE_DIR}/
+                                         '
+                                         """
+                                         sh(sshCommand)
+                                     }
+                    //deployOnWorker()
                  /*
                       if (params.DEPLOY_ENV == 'dev') {
                           echo 'Deploying to DEV environment...'

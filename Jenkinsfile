@@ -14,7 +14,7 @@
     environment {
           REMOTE_HOST = "192.168.56.11"
           REMOTE_USER = "vagrant"  // Replace with your remote username
-          REMOTE_DIR = "/home/vagrant/deployment/sama-gp"  // Path where you want to create the folder and copy the JAR
+          REMOTE_DIR = "/home/vagrant/deploy/samagp"  // Path where you want to create the folder and copy the JAR
           JAR_FILE = "samagp-api-ms-0.0.1-SNAPSHOT.jar"  // Path to the JAR file you want to copy
       }
 

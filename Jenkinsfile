@@ -78,6 +78,16 @@
         stage('Deploy') {
              steps {
                  script {
+                  def jarPath = "target/samagp-api-ms-0.0.1-SNAPSHOT.jar"
+                                     def remoteUser = "vagrant"
+                                     def remoteHost = "192.168.56.11"
+                                     def remotePath = "/opt/deployment/sama-gp/sama-gp-annonce.jar"
+                                     def privateKeyPath = "~/.ssh/id_rsa"
+
+                                     sh """
+                                         scp -i ${privateKeyPath} -o StrictHostKeyChecking=no ${jarPath} ${remoteUser}@${remoteHost}:${remotePath}
+                                     """
+                                     """
                  /*
                  echo "pushing jar to worker1"
                  sshagent([SSH_CREDENTIAL_ID]) {
@@ -90,7 +100,7 @@
                                          sh(sshCommand)
                                      }
                                      */
-                    deployOnWorker()
+                   // deployOnWorker()
                  /*
                       if (params.DEPLOY_ENV == 'dev') {
                           echo 'Deploying to DEV environment...'

@@ -86,13 +86,15 @@
              steps {
                  script {
                  sshagent(['vargrant-public-key']) {
-                                         def sshCommand = """
-                                         ssh ${REMOTE_USER}@${REMOTE_HOST} '
-                                             mkdir -p ${REMOTE_DIR} &&
-                                             cp ${JAR_FILE} ${REMOTE_DIR}/
-                                         '
-                                         """
-                                         sh(sshCommand)}
+                    def sshCommand = """
+                    ssh ${REMOTE_USER}@${REMOTE_HOST} '
+                    mkdir -p ${REMOTE_DIR} &&
+                    cp ${JAR_FILE} ${REMOTE_DIR}/
+                     '
+                    """
+                    sh(sshCommand)
+                 }
+                 }
                    // deployOnWorker()
                  /*
                       if (params.DEPLOY_ENV == 'dev') {

@@ -78,6 +78,7 @@
         stage('Deploy') {
              steps {
                  script {
+                 /*
                  echo "pushing jar to worker1"
                  sshagent([SSH_CREDENTIAL_ID]) {
                                          def sshCommand = """
@@ -88,7 +89,8 @@
                                          """
                                          sh(sshCommand)
                                      }
-                    //deployOnWorker()
+                                     */
+                    deployOnWorker()
                  /*
                       if (params.DEPLOY_ENV == 'dev') {
                           echo 'Deploying to DEV environment...'

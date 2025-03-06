@@ -78,6 +78,7 @@
         stage('Deploy') {
              steps {
                  script {
+                 echo "pushing jar to worker1"
                  sshagent([SSH_CREDENTIAL_ID]) {
                                          def sshCommand = """
                                          ssh ${REMOTE_USER}@${REMOTE_HOST} '

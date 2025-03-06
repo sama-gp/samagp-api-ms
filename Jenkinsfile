@@ -80,7 +80,7 @@
                  script {
 
 
-
+/*
                  echo "pushing jar to worker1"
                  def jarPath = "target/samagp-api-ms-0.0.1-SNAPSHOT.jar"
                  def remoteUser = "vagrant"
@@ -91,7 +91,7 @@
                  sh """
                     scp -i ${privateKeyPath} -o StrictHostKeyChecking=no ${jarPath} ${remoteUser}@${remoteHost}:${remotePath}
                  """
-
+*/
                  /*
                  sshagent([SSH_CREDENTIAL_ID]) {
                                          def sshCommand = """
@@ -103,7 +103,7 @@
                                          sh(sshCommand)
                                      }
                                      */
-                   // deployOnWorker()
+                    deployOnWorker()
                  /*
                       if (params.DEPLOY_ENV == 'dev') {
                           echo 'Deploying to DEV environment...'

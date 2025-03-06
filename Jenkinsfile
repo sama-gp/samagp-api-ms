@@ -92,7 +92,7 @@
                                              cp ${JAR_FILE} ${REMOTE_DIR}/
                                          '
                                          """
-                                         sh(sshCommand)
+                                         sh(sshCommand)}
                    // deployOnWorker()
                  /*
                       if (params.DEPLOY_ENV == 'dev') {

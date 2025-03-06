@@ -71,6 +71,8 @@
         stage('Deploy') {
              steps {
                  script {
+                    deployOnWorker()
+                 /*
                       if (params.DEPLOY_ENV == 'dev') {
                           echo 'Deploying to DEV environment...'
                         //  sh './deploy-dev.sh'
@@ -81,6 +83,7 @@
                            echo 'Deploying to PRODUCTION...'
                         // sh './deploy-prod.sh'
                        }
+                       */
                  }
              }
         }

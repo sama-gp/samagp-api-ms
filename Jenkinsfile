@@ -49,39 +49,14 @@
                 sh 'mvn test'
             }
         }
-
 /*
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t ${DOCKER_IMAGE}:latest .'
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/']) {
-                    sh 'docker tag ${DOCKER_IMAGE}:latest ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:latest'
-                    sh 'docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:latest'
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh '''
-                docker stop ${CONTAINER_NAME} || true
-                docker rm ${CONTAINER_NAME} || true
-                docker run -d --name ${CONTAINER_NAME} -p 8080:8080 ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:latest
-                '''
-            }
-        }*/
         stage('Deploy on workers') {
              steps {
                  script {
                     deployOnWorker()
                  }
              }
-        }
+        }*/
         stage('Check K8s Connectivity') {
                      steps {
                        sh '''

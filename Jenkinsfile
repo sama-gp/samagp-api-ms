@@ -75,50 +75,21 @@
                 '''
             }
         }*/
-        stage('Deploy') {
+        stage('Deploy on workers') {
              steps {
                  script {
-
-
-/*
-                 echo "pushing jar to worker1"
-                 def jarPath = "target/samagp-api-ms-0.0.1-SNAPSHOT.jar"
-                 def remoteUser = "vagrant"
-                 def remoteHost = "192.168.56.11"
-                 def remotePath = "/opt/deployment/sama-gp/sama-gp-annonce.jar"
-                 def privateKeyPath = "~/.ssh/id_rsa"
-
-                 sh """
-                    scp -i ${privateKeyPath} -o StrictHostKeyChecking=no ${jarPath} ${remoteUser}@${remoteHost}:${remotePath}
-                 """
-*/
-                 /*
-                 sshagent([SSH_CREDENTIAL_ID]) {
-                                         def sshCommand = """
-                                         ssh ${REMOTE_USER}@${REMOTE_HOST} '
-                                             mkdir -p ${REMOTE_DIR} &&
-                                             cp ${JAR_FILE} ${REMOTE_DIR}/
-                                         '
-                                         """
-                                         sh(sshCommand)
-                                     }
-                                     */
                     deployOnWorker()
-                 /*
-                      if (params.DEPLOY_ENV == 'dev') {
-                          echo 'Deploying to DEV environment...'
-                        //  sh './deploy-dev.sh'
-                      } else if (params.DEPLOY_ENV == 'staging') {
-                          echo 'Deploying to STAGING environment...'
-                         //  sh './deploy-staging.sh'
-                      } else if (params.DEPLOY_ENV == 'prod') {
-                           echo 'Deploying to PRODUCTION...'
-                        // sh './deploy-prod.sh'
-                       }
-                       */
                  }
              }
         }
+        stage('Check K8s Connectivity') {
+                     steps {
+                       sh '''
+                         kubectl apply -f deployment.yaml
+                         kubectl apply -f service.yaml
+                       '''
+                     }
+                 }
     }
 
     post {

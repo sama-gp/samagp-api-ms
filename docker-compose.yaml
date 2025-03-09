@@ -17,7 +17,7 @@ services:
       - samagp-network
 
   annonce-ms:
-    build: ./annonce-ms
+    build: .
     container_name: annonce-ms
     restart: always
     ports:

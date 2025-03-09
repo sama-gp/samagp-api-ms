@@ -1,1 +1,33 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        form_sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/samagp
+    username: samagp
+    password: samagp
+    driver-class-name: org.postgresql.Driver
+# flyway
+  flyway:
+    enable: true
+    baseline-on-migrate: true
+    location: classpath:db/migration
 
+
+# Configuration Kafka
+
+# Configuration WebClient
+
+logging:
+  level:
+    root: INFO
+    org.springframwork.web: INFO
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO  # Affiche les valeurs des paramètres SQL

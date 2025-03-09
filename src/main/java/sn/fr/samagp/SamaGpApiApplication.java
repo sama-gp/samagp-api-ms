@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SamaApiApplication {
+public class SamaGpApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SamaApiApplication.class, args);
+		SpringApplication.run(SamaGpApiApplication.class, args);
 	}
 
 }
+

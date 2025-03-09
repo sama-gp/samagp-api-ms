@@ -108,6 +108,12 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<!--		Flyway pluguin-->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.17.0</version>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

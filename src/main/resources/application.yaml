@@ -1,1 +1,13 @@
-spring.application.name=sama-gp-ms
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/samagp
+    username: samagp
+    password: samagp
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

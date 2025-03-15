@@ -49,22 +49,22 @@
                 sh 'mvn test'
             }
         }
-/*
+
         stage('Deploy on workers') {
              steps {
                  script {
                     deployOnWorker()
                  }
              }
-        }*/
-        stage('Check K8s Connectivity') {
+        }
+        /*stage('Check K8s Connectivity') {
                      steps {
                        sh '''
                          kubectl apply -f deployment.yaml
                          kubectl apply -f service.yaml
                        '''
                      }
-                 }
+                 }*/
     }
 
     post {

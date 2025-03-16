@@ -20,6 +20,25 @@
     }
 
     stages {
+     stage('Load Env Properties'){
+                   steps{
+                       script{
+                          def envVars =  EnvVariablesLoader()
+                          envVars.each { key, value ->
+                                env[key] = value
+                          }
+                           }
+                   }
+            }
+            stage('Use Variables') {
+                        steps {
+                            script {
+                                echo "MY_VAR = ${env.MASTER_CREDENTIAL_ID}"
+                                echo "API_KEY = ${env.GIT_CREDENTIAL_ID}"
+                                echo "DATABASE_URL = ${env.ANNONCE_MS_GIT_URL}"
+                            }
+                        }
+                    }
         stage('Run Groovy from git library'){
         steps{
             script{

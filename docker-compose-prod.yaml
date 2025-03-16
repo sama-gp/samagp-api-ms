@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  webapp:
+    environment:
+      - APP_ENV=production
+    image: myapp:prod
+    ports:
+      - "80:80"
+    restart: always
+    networks:
+      - prod-network
+
+networks:
+  prod-network:
+    driver: bridge

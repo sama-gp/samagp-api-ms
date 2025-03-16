@@ -1,6 +1,7 @@
 package sn.fr.samagp.repository.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,11 @@ public class Itineraire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+    @NotBlank(message = "the start Itinerary is required")
+    private ZoneGeo start;
+    @NotBlank(message = "the start Itinerary is required")
+    private ZoneGeo arrived;
+    private String description;
     @ManyToMany(mappedBy = "favoris")
     private List<Client> clients = new ArrayList<>();
 }

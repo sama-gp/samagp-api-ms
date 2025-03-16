@@ -1,7 +1,6 @@
 services:
-  db:
+  postgres:
     image: postgres:13
-    container_name: postgres_container
     environment:
       POSTGRES_USER: samagp
       POSTGRES_PASSWORD: samagp
@@ -13,18 +12,18 @@ services:
     networks:
       - samagp-network
 
-  annonce-ms:
+  samagp-api-ms:
     build: .
-    container_name: annonce-ms
     restart: always
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - postgres
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/samagp
       SPRING_DATASOURCE_USERNAME: samagp
       SPRING_DATASOURCE_PASSWORD: samagp
+      APP_ENV: dev
     networks:
       - samagp-network
 

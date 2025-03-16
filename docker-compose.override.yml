@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  samagp-api-ms:
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/samagp
+      SPRING_DATASOURCE_USERNAME: samagp
+      SPRING_DATASOURCE_PASSWORD: samagp
+      APP_ENV: dev
+    volumes:
+      - ./src:/app
+    ports:
+      - "8080:8080"
+    networks:
+      - samagp-network

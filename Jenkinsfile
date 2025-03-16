@@ -17,15 +17,35 @@
         REMOTE_DIR = "/home/vagrant/deploy/samagp5"
         JAR_FILE = "samagp-api-ms-0.0.1-SNAPSHOT.jar"
         SSH_CREDENTIAL_ID = "vargrant-public-key"  // Replace with the correct credential ID
+        MASTER_SSH_CREDENTIAL_ID = "vargrant-public-key"  // Replace with the correct credential ID
     }
 
     stages {
-        stage('Run Groovy from git library'){
-        steps{
-            script{
-                buildDockerImage('sama-gp-annonce-image', 'Dockerfile')
+        stage('Load Env Properties'){
+               steps{
+                   script{
+                      def envVars =  EnvVariablesLoader()
+                      envVars.each { key, value ->
+                            env[key] = value
+                      }
+                       }
+               }
+        }
+        stage('Use Variables') {
+                    steps {
+                        script {
+                            echo "MY_VAR = ${env.MASTER_CREDENTIAL_ID}"
+                            echo "API_KEY = ${env.GIT_CREDENTIAL_ID}"
+                            echo "DATABASE_URL = ${env.ANNONCE_MS_GIT_URL}"
+                        }
+                    }
                 }
-            }
+        stage('Run Groovy from git library'){
+               steps{
+                      script{
+                       buildDockerImage('sama-gp-annonce-image', 'Dockerfile')
+                    }
+                 }
         }
         stage('Checkout Code') {
             steps {
@@ -50,13 +70,27 @@
             }
         }
 
-        stage('Deploy on workers') {
-             steps {
-                 script {
-                    deployOnWorker()
-                 }
-             }
-        }
+        stage('k8s Deployment on workers') {
+                     steps {
+                         script {
+                        sshagent(['k8s-master-ssh-credential-id']) {
+                        sh '''
+                        ssh -o StrictHostKeyChecking=no $K8S_MASTER << EOF
+                        kubectl apply -f /path/to/k8s/
+                        kubectl get pods -o wide
+                        EOF
+                        '''
+                }
+                         }
+                     }
+                }
+      /*  stage('Deploy on workers') {
+              steps {
+                    script {
+                        deployOnWorker()
+                             }
+                    }
+        }*/
         /*stage('Check K8s Connectivity') {
                      steps {
                        sh '''

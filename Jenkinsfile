@@ -23,7 +23,7 @@
      stage('Load Env Properties'){
                    steps{
                        script{
-                          def envVars =  EnvVariablesLoader()
+                          def envVars =  envVariablesLoader()
                           envVars.each { key, value ->
                                 env[key] = value
                           }

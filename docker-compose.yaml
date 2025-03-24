@@ -20,7 +20,7 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/samagp
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/samagp
       SPRING_DATASOURCE_USERNAME: samagp
       SPRING_DATASOURCE_PASSWORD: samagp
       APP_ENV: dev

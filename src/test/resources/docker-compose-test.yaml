@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  webapp:
+    environment:
+      - APP_ENV=test
+    ports:
+      - "8081:8080"  # Changez de port pour éviter les conflits
+    depends_on:
+      - postgres
+    networks:
+      - test-network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: testdb
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge

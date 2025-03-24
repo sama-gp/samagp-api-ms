@@ -1,4 +1,4 @@
 package sn.fr.samagp.repository.dto;
 
-public class ClientModelDTO {
+public record AvisDTO() {
 }

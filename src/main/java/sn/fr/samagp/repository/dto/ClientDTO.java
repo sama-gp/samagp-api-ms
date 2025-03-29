@@ -3,36 +3,41 @@ package sn.fr.samagp.repository.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import sn.fr.samagp.repository.model.Profile;
 
 import java.util.List;
 
-public record ClientDTO(
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClientDTO {
+
         @NotBlank(message = "First name is required")
-        String firstName,
+        private String firstName;
 
         @NotBlank(message = "Last name is required")
-        String lastName,
+        private String lastName;
 
         @Email(message = "The email must be valid")
         @NotBlank(message = "The email is required")
-        String email,
+        private String email;
 
         @NotBlank(message = "The password is required")
-        String password,
+        private String password;
 
         @NotBlank(message = "The phone number is required")
-        String phone,
+        private String phone;
 
         @NotBlank(message = "The address is required")
-        String address,
+        private String address;
 
         @NotNull(message = "Profile is required")
-        Profile profile,
-        List<Long> annoncesIds,
-        List<Long> favorisIds
-) {
+        private Profile profile;
 
+        private List<Long> annoncesIds;
+        private List<Long> favorisIds;
 }
-
 

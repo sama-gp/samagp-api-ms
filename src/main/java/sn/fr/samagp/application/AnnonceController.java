@@ -1,4 +1,4 @@
-package sn.fr.samagp.apicontroller;
+package sn.fr.samagp.application;
 
 
 import org.springframework.http.ResponseEntity;

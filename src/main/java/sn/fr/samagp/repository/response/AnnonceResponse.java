@@ -1,5 +1,10 @@
 package sn.fr.samagp.repository.response;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import sn.fr.samagp.repository.dto.AvisDTO;
 import sn.fr.samagp.repository.dto.ClientDTO;
 import sn.fr.samagp.repository.dto.ItineraireDTO;
@@ -8,17 +13,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public record AnnonceResponse(
-        UUID id,
-        ItineraireDTO itineraire,
-        String itineraireDetailsDepart,
-        String itineraireDetailsArrive,
-        String description,
-        LocalDateTime dateDepart,
-        LocalDateTime dateArrive,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt,
-        List<AvisDTO> avis,
-        ClientDTO client
-) {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class AnnonceResponse {
+    private UUID id;
+    private ItineraireDTO itineraire;
+    private String itineraireDetailsDepart;
+    private String itineraireDetailsArrive;
+    private String description;
+    private LocalDateTime dateDepart;
+    private LocalDateTime dateArrive;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private List<AvisDTO> avis;
+    private ClientDTO client;
 }

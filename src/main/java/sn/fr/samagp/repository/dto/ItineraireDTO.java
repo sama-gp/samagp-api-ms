@@ -1,4 +1,4 @@
 package sn.fr.samagp.repository.dto;
 
-public record ItineraireDTO (){
+public class ItineraireDTO{
 }

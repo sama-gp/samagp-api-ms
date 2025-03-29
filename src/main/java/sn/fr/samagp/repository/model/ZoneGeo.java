@@ -4,6 +4,8 @@ package sn.fr.samagp.repository.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,7 +17,6 @@ public class ZoneGeo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
-
     private String nameZone;
     @Enumerated(EnumType.STRING)
     private TypeZoneGeo typeZoneGeo;

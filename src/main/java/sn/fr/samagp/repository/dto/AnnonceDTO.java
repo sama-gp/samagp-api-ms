@@ -1,4 +1,15 @@
 package sn.fr.samagp.repository.dto;
 
-public record AnnonceDTO() {
+import java.time.LocalDateTime;
+
+
+public record AnnonceDTO(
+        ItineraireDTO itineraireDTO,
+        String itineraireDetailsDepart,
+        String itineraireDetailsArrive,
+        String description,
+        LocalDateTime dateDepart,
+        LocalDateTime dateArrive,
+        LocalDateTime updatedAt
+) {
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity(name = "avis")
 @Getter
 @Setter
@@ -13,9 +15,9 @@ import lombok.*;
 public class Avis {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @EqualsAndHashCode.Include
-    private Long id;
+    private UUID id;
     private String comment;
     @ManyToOne
     @JoinColumn(name = "annonce_id", nullable = false)

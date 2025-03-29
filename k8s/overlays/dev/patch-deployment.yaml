@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samagp-api
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: samagp-api
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev"

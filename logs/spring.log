@@ -1,0 +1,8 @@
+2025-03-28 16:15:39.178 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-28 16:15:39.355 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-28 16:15:41.369 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-28 16:15:41.386 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-28 16:15:41.403 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-28 16:15:41.594 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-28 16:15:41.762 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-28 16:15:41.775 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

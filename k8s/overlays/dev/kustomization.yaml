@@ -1,0 +1,26 @@
+bases:
+  - ../../base
+
+patchesStrategicMerge:
+  - patch-deployment.yaml
+
+configMapGenerator:
+  - name: samagp-api-config
+    literals:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DATABASE_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+      - SERVER_PORT=8082
+      - SPRINGDOC_SWAGGER_UI_PATH=/api/swagger-ui.html
+
+secretGenerator:
+  - name: postgres-secret
+    literals:
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=postgres-service
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=samagp
+
+

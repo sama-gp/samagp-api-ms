@@ -10,22 +10,20 @@ import org.springframework.data.annotation.CreatedDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
-@Entity(name = "annonce")
-@Getter
-@Setter
+@Entity
+@Table(name = "ANNONCES")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 public class Annonce {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long id;
-    @NotNull
-    private Itineraire itineraire;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
+    private UUID id;
     @NotBlank(message = "the ItineraireDetailsDepart is required")
     private String ItineraireDetailsDepart;
     @NotBlank(message = "the ItineraireDetailsArrive is required")

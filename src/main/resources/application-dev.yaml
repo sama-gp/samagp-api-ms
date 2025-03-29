@@ -1,4 +1,11 @@
-spring:
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#Database
+POSTGRES_SQL_USERNAME: postgres
+POSTGRES_SQL_PASSWORD: postgres
+POSTGRES_SQL_HOST: postgres
+#POSTGRES_SQL_HOST: postgres  docker
+POSTGRES_SQL_PORT: 5434
+POSTGRES_SQL_DB: samagp
+
+#Server
+ACTIVE_PROFILE: dev
+

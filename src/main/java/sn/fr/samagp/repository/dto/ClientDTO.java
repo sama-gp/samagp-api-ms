@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 import sn.fr.samagp.repository.model.Profile;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClientDTO {
 
+        private UUID id;
         @NotBlank(message = "First name is required")
         private String firstName;
 

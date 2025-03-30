@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class SamaGpApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SamaGpApiApplication.class, args);

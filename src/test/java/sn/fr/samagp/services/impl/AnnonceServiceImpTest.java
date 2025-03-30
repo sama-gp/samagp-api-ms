@@ -81,7 +81,7 @@ class AnnonceServiceImpTest {
         when(annonceMapper.toEntity(annonceDTO)).thenReturn(annonce);
         when(annonceRepository.save(annonce)).thenReturn(annonce);
         when(annonceMapper.toDto(annonce)).thenReturn(annonceDTO);
-        AnnonceDTO result = annonceService.createAnnonce(annonceDTO);
+        AnnonceResponse result = annonceService.createAnnonce(annonceDTO);
         assertNotNull(result);
         verify(annonceValidator).validate(annonce);
         verify(annonceRepository).save(annonce);

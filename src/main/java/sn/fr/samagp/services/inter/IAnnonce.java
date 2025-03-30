@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface IAnnonce {
-    AnnonceDTO createAnnonce(AnnonceDTO annonceDTO);
+    AnnonceResponse createAnnonce(AnnonceDTO annonceDTO);
     Optional<AnnonceResponse> getAnnonceById(UUID id);
     List<AnnonceResponse> getAllAnnonces();
     AnnonceDTO updateAnnonce(UUID id, AnnonceDTO annonceDTO);

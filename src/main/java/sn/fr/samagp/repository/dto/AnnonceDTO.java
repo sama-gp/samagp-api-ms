@@ -18,4 +18,5 @@ public class AnnonceDTO {
     private LocalDateTime dateDepart;
     private LocalDateTime dateArrive;
     private LocalDateTime updatedAt;
+    private ClientDTO clientDTO;
 }

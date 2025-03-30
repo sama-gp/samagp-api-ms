@@ -31,15 +31,16 @@ public class AnnonceController {
     // Récupérer une annonce par son ID
     @GetMapping("/{id}")
     public ResponseEntity<AnnonceResponse> getAnnonceById(@PathVariable UUID id) {
-        Optional<AnnonceResponse> annonce = annonceService.getAnnonceById(id);
-        return annonce.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return annonceService.getAnnonceById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
 
     // Créer une nouvelle annonce
     @PostMapping
-    public ResponseEntity<AnnonceDTO> createAnnonce(@RequestBody AnnonceDTO annonceDTO) {
-        AnnonceDTO createdAnnonce = annonceService.createAnnonce(annonceDTO);
+    public ResponseEntity<AnnonceResponse> createAnnonce(@RequestBody AnnonceDTO annonceDTO) {
+        AnnonceResponse createdAnnonce = annonceService.createAnnonce(annonceDTO);
         return ResponseEntity.status(201).body(createdAnnonce);
     }
 
@@ -57,7 +58,7 @@ public class AnnonceController {
     // Supprimer une annonce
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAnnonce(@PathVariable UUID id) {
-        annonceService.deleteAnnonce(id);
+         annonceService.deleteAnnonce(id);
         return ResponseEntity.noContent().build();
     }
 

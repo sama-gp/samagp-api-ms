@@ -12,7 +12,9 @@ import sn.fr.samagp.repository.response.AnnonceResponse;
 public interface AnnonceMapper {
     AnnonceMapper INSTANCE = Mappers.getMapper(AnnonceMapper.class);
 
+    @Mapping(target = "client", source = "clientDTO")
     Annonce toEntity(AnnonceDTO dto);
     AnnonceDTO toDto(Annonce annonce);
+    @Mapping(target = "client", source = "client")
     AnnonceResponse toResponse(Annonce annonce);
 }

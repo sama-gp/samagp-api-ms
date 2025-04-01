@@ -7,12 +7,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sn.fr.samagp.mapper.AnnonceMapper;
+import sn.fr.samagp.mapper.ClientMapper;
 import sn.fr.samagp.repository.AnnonceRepository;
 import sn.fr.samagp.repository.dto.AnnonceDTO;
 import sn.fr.samagp.repository.dto.AvisDTO;
 import sn.fr.samagp.repository.dto.ClientDTO;
 import sn.fr.samagp.repository.dto.ItineraireDTO;
 import sn.fr.samagp.repository.model.Annonce;
+import sn.fr.samagp.repository.model.Client;
+import sn.fr.samagp.repository.model.Profile;
 import sn.fr.samagp.repository.response.AnnonceResponse;
 import sn.fr.samagp.validator.AnnonceValidator;
 
@@ -34,6 +37,9 @@ class AnnonceServiceImpTest {
     private AnnonceMapper annonceMapper;
 
     @Mock
+    private ClientMapper clientMapper;
+
+    @Mock
     private AnnonceValidator annonceValidator;
 
     @InjectMocks
@@ -43,16 +49,28 @@ class AnnonceServiceImpTest {
     private Annonce annonce;
     private AnnonceDTO annonceDTO;
     private AnnonceResponse annonceResponse;
-
+    private Client client;
     @BeforeEach
     void setUp() {
         annonceId = UUID.randomUUID();
         annonce = new Annonce();
-        ItineraireDTO itineraireDTO = new ItineraireDTO();
-        ClientDTO clientDTO = new ClientDTO();
+        ClientDTO clientDTO = new ClientDTO(
+                UUID.randomUUID(), "John", "Doe", "john.doe@example.com", "password",
+                "0123456789", "123 Main Street", Profile.GP, List.of(), List.of()
+        );
+
+        client = new Client();
+        client.setId(clientDTO.getId());
+        client.setFirstName(clientDTO.getFirstName());
+        client.setLastName(clientDTO.getLastName());
+        client.setEmail(clientDTO.getEmail());
+        client.setPassword(clientDTO.getPassword());
+        client.setPhone(clientDTO.getPhone());
+        client.setAddress(clientDTO.getAddress());
+        client.setProfile(clientDTO.getProfile());
         List<AvisDTO> avisList = List.of();
         annonceDTO = AnnonceDTO.builder()
-                .itineraireDTO(itineraireDTO)
+                .itineraireDTO(null)
                 .itineraireDetailsDepart("Gare du Nord")
                 .itineraireDetailsArrive("Champs-Élysées")
                 .description("Voyage rapide et confortable")
@@ -62,7 +80,7 @@ class AnnonceServiceImpTest {
                 .build();
         annonceResponse = AnnonceResponse.builder()
                 .id(annonceId)
-                .itineraire(itineraireDTO)
+                .itineraire(null)
                 .itineraireDetailsDepart("Gare du Nord")
                 .itineraireDetailsArrive("Champs-Élysées")
                 .description("Voyage rapide et confortable")
@@ -80,12 +98,13 @@ class AnnonceServiceImpTest {
     void createAnnonceDTO() {
         when(annonceMapper.toEntity(annonceDTO)).thenReturn(annonce);
         when(annonceRepository.save(annonce)).thenReturn(annonce);
-        when(annonceMapper.toDto(annonce)).thenReturn(annonceDTO);
+        when(annonceMapper.toResponse(annonce)).thenReturn(annonceResponse);
         AnnonceResponse result = annonceService.createAnnonce(annonceDTO);
         assertNotNull(result);
         verify(annonceValidator).validate(annonce);
         verify(annonceRepository).save(annonce);
     }
+
 
     @Test
     void getAnnonceById_AnnonceExists() {
@@ -119,13 +138,17 @@ class AnnonceServiceImpTest {
 
     @Test
     void updateAnnonce_UpdatedAnnonceDTO_AnnonceExists() {
-        when(annonceRepository.findById(annonceId)).thenReturn(java.util.Optional.of(annonce));
-        when(annonceMapper.toDto(annonce)).thenReturn(annonceDTO);
-        when(annonceRepository.save(annonce)).thenReturn(annonce);
+        when(annonceRepository.findById(annonceId)).thenReturn(Optional.of(annonce));
+        when(clientMapper.toEntity(annonceDTO.getClientDTO())).thenReturn(client);
+        when(annonceMapper.toDto(any(Annonce.class))).thenReturn(annonceDTO);
+        when(annonceRepository.save(any(Annonce.class))).thenReturn(annonce);
+
         AnnonceDTO result = annonceService.updateAnnonce(annonceId, annonceDTO);
+
         assertNotNull(result);
         verify(annonceRepository).findById(annonceId);
-        verify(annonceRepository).save(annonce);
+        verify(clientMapper).toEntity(annonceDTO.getClientDTO()); // Vérification du mapping client
+        verify(annonceRepository).save(any(Annonce.class));
     }
 
     @Test
@@ -138,10 +161,22 @@ class AnnonceServiceImpTest {
 
     @Test
     void deleteAnnonce_DeleteById() {
+        when(annonceRepository.findById(annonceId)).thenReturn(Optional.of(annonce));
         doNothing().when(annonceRepository).deleteById(annonceId);
         annonceService.deleteAnnonce(annonceId);
+        verify(annonceRepository).findById(annonceId);
         verify(annonceRepository).deleteById(annonceId);
     }
+
+    @Test
+    void deleteAnnonce_ShouldThrowException_AnnonceNotFound() {
+        when(annonceRepository.findById(annonceId)).thenReturn(Optional.empty());
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> annonceService.deleteAnnonce(annonceId));
+        assertEquals("Annonce non trouvée!", exception.getMessage());
+        verify(annonceRepository).findById(annonceId);
+        verify(annonceRepository, never()).deleteById(any(UUID.class));
+    }
+
 
     @Test
     void getAnnonceByClient_ListOfAnnonceResponses() {
@@ -150,9 +185,7 @@ class AnnonceServiceImpTest {
         List<AnnonceResponse> expectedResponses = List.of(annonceResponse);
         when(annonceRepository.findByClientId(clientId)).thenReturn(annonces);
         when(annonceMapper.toResponse(annonce)).thenReturn(annonceResponse);
-
         List<AnnonceResponse> result = annonceService.getAnnonceByClient(clientId);
-
         assertNotNull(result);
         assertEquals(expectedResponses, result);
         verify(annonceRepository).findByClientId(clientId);

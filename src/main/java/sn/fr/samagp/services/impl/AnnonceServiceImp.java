@@ -42,7 +42,7 @@ public class AnnonceServiceImp implements IAnnonce {
 
     @Override
     public Optional<AnnonceResponse> getAnnonceById(UUID id) {
-        return annonceRepository.findByAltId(id).map(annonceMapper::toResponse);
+        return annonceRepository.findById(id).map(annonceMapper::toResponse);
     }
 
     @Override
@@ -75,6 +75,7 @@ public class AnnonceServiceImp implements IAnnonce {
             annonceRepository.deleteById(id);
         } else {
             System.out.println("************** Annonce avec l'ID " + id + " introuvable !");
+            throw new RuntimeException("Annonce non trouvée!");
         }
     }
 

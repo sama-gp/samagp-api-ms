@@ -8,7 +8,6 @@ import sn.fr.samagp.repository.response.AnnonceResponse;
 import sn.fr.samagp.services.inter.IAnnonce;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

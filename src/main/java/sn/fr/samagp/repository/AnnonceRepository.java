@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface AnnonceRepository extends JpaRepository<Annonce, UUID> {
     List<Annonce> findByClientId(UUID clientId);
-    @Query("SELECT a FROM Annonce a WHERE a.id = :id")
-    Optional<Annonce> findByAltId(@Param("id") UUID id);
+//    @Query("SELECT a FROM Annonce a WHERE a.id = :id")
+//    Optional<Annonce> findByAltId(@Param("id") UUID id);
 
 }

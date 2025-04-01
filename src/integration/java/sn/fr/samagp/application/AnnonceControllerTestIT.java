@@ -257,29 +257,18 @@ public class AnnonceControllerTestIT {
     void testDeleteAnnonce() {
         // 2. Supprimer l'annonce
         ResponseEntity<Void> deleteResponse = restTemplate.exchange(
-                "/annonces/" + existingAnnonceId.toString(),
+                "/annonces/" + existingAnnonceId,
                 HttpMethod.DELETE,
                 null,
                 Void.class
         );
         assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         ResponseEntity<AnnonceResponse> getResponse = restTemplate.getForEntity(
-                "/annonces/" + existingAnnonceId.toString(),
+                "/annonces/" + existingAnnonceId,
                 AnnonceResponse.class
         );
         assertThat(getResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-
-    @Test
-    void testDeleteAnnonce_NotFound() {
-        ResponseEntity<Void> response = restTemplate.exchange(
-                "/annonces/" + nonExistingAnnonceId,
-                HttpMethod.DELETE,
-                null,
-                Void.class
-        );
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-    }
 
 }

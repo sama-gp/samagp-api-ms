@@ -6,3 +6,311 @@
 2025-03-28 16:15:41.594 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-03-28 16:15:41.762 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-03-28 16:15:41.775 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 13:19:41.893 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Starting SamaGpApiApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/sama-gp-annonce-ms.jar started by root in /app)
+2025-03-29 13:19:41.895 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - The following 1 profile is active: "dev"
+2025-03-29 13:19:42.613 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 13:19:42.718 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 98 ms. Found 3 JPA repository interfaces.
+2025-03-29 13:19:42.758 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-03-29 13:19:42.764 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-03-29 13:19:43.203 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-03-29 13:19:43.210 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 13:19:43.210 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-29 13:19:43.230 [] [] INFO  [main] o.a.c.c.C.[.[localhost].[/samagp] - Initializing Spring embedded WebApplicationContext
+2025-03-29 13:19:43.230 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1303 ms
+2025-03-29 13:19:43.420 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 13:19:43.457 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-29 13:19:43.477 [] [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 13:19:43.662 [] [] INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 13:19:43.681 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 13:19:43.806 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5a07ae2f
+2025-03-29 13:19:43.807 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 13:19:43.825 [] [] WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 13:19:43.836 [] [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 14.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-29 13:19:44.410 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 13:19:44.514 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 13:19:44.858 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-29 13:19:45.295 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-03-29 13:19:45.392 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 13:19:45.393 [] [] INFO  [main] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 1 subscriber(s).
+2025-03-29 13:19:45.393 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-03-29 13:19:45.439 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/samagp'
+2025-03-29 13:19:45.449 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Started SamaGpApiApplication in 4.007 seconds (process running for 4.329)
+2025-03-29 13:32:28.373 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 13:32:28.379 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 13:32:28.406 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 13:32:28.407 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-29 13:32:28.407 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-29 13:32:28.414 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 13:32:28.415 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 13:32:28.417 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 13:32:45.539 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Starting SamaGpApiApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/sama-gp-annonce-ms.jar started by root in /app)
+2025-03-29 13:32:45.540 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - The following 1 profile is active: "dev"
+2025-03-29 13:32:46.303 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 13:32:46.429 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 116 ms. Found 3 JPA repository interfaces.
+2025-03-29 13:32:46.475 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-03-29 13:32:46.486 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-03-29 13:32:46.987 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-03-29 13:32:46.996 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 13:32:46.997 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-29 13:32:47.020 [] [] INFO  [main] o.a.c.c.C.[.[localhost].[/samagp] - Initializing Spring embedded WebApplicationContext
+2025-03-29 13:32:47.021 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1447 ms
+2025-03-29 13:32:47.230 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 13:32:47.276 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-29 13:32:47.301 [] [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 13:32:47.493 [] [] INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 13:32:47.514 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 13:32:47.666 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@66d44581
+2025-03-29 13:32:47.667 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 13:32:47.690 [] [] WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 13:32:47.702 [] [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 14.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-29 13:32:48.356 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 13:32:48.512 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 13:32:48.867 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-29 13:32:49.313 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-03-29 13:32:49.419 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 13:32:49.419 [] [] INFO  [main] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 1 subscriber(s).
+2025-03-29 13:32:49.419 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-03-29 13:32:49.463 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/samagp'
+2025-03-29 13:32:49.474 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Started SamaGpApiApplication in 4.376 seconds (process running for 4.72)
+2025-03-29 14:09:27.371 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 14:09:27.374 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 14:09:27.394 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:09:27.394 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-29 14:09:27.394 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:09:27.402 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:09:27.404 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 14:09:27.405 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 14:09:34.799 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Starting SamaGpApiApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/sama-gp-annonce-ms.jar started by root in /app)
+2025-03-29 14:09:34.800 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - The following 1 profile is active: "dev"
+2025-03-29 14:09:35.526 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 14:09:35.634 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 100 ms. Found 3 JPA repository interfaces.
+2025-03-29 14:09:35.682 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-03-29 14:09:35.690 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-03-29 14:09:36.265 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-03-29 14:09:36.275 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 14:09:36.276 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-29 14:09:36.302 [] [] INFO  [main] o.a.c.c.C.[.[localhost].[/samagp] - Initializing Spring embedded WebApplicationContext
+2025-03-29 14:09:36.302 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1474 ms
+2025-03-29 14:09:36.528 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 14:09:36.567 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-29 14:09:36.589 [] [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 14:09:36.751 [] [] INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 14:09:36.771 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 14:09:36.893 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@dbcf7c3
+2025-03-29 14:09:36.894 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 14:09:36.918 [] [] WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 14:09:36.933 [] [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 14.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-29 14:09:37.590 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 14:09:37.734 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:09:38.126 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-29 14:09:38.631 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-03-29 14:09:38.750 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:09:38.751 [] [] INFO  [main] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 1 subscriber(s).
+2025-03-29 14:09:38.751 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:09:38.801 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/samagp'
+2025-03-29 14:09:38.816 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Started SamaGpApiApplication in 4.428 seconds (process running for 4.724)
+2025-03-29 14:22:03.328 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 14:22:03.332 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 14:22:03.348 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:22:03.348 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-29 14:22:03.348 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:22:03.354 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:22:03.355 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 14:22:03.357 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 14:22:12.953 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Starting SamaGpApiApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/sama-gp-annonce-ms.jar started by root in /app)
+2025-03-29 14:22:12.954 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - The following 1 profile is active: "dev"
+2025-03-29 14:22:13.727 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 14:22:13.839 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 103 ms. Found 3 JPA repository interfaces.
+2025-03-29 14:22:13.883 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-03-29 14:22:13.889 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-03-29 14:22:14.419 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-03-29 14:22:14.429 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 14:22:14.429 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-29 14:22:14.455 [] [] INFO  [main] o.a.c.c.C.[.[localhost].[/samagp] - Initializing Spring embedded WebApplicationContext
+2025-03-29 14:22:14.456 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1472 ms
+2025-03-29 14:22:14.685 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 14:22:14.729 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-29 14:22:14.752 [] [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 14:22:14.914 [] [] INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 14:22:14.932 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 14:22:15.046 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@70eb94d7
+2025-03-29 14:22:15.047 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 14:22:15.071 [] [] WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 14:22:15.084 [] [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 14.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-29 14:22:15.719 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 14:22:15.848 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:22:16.245 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-29 14:22:16.766 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-03-29 14:22:16.886 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:22:16.886 [] [] INFO  [main] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 1 subscriber(s).
+2025-03-29 14:22:16.887 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:22:16.932 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/samagp'
+2025-03-29 14:22:16.943 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Started SamaGpApiApplication in 4.394 seconds (process running for 4.688)
+2025-03-29 14:28:00.059 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 14:28:00.062 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 14:28:00.079 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:28:00.080 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-29 14:28:00.080 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:28:00.086 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:28:00.088 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 14:28:00.089 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 14:28:05.696 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Starting SamaGpApiApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/sama-gp-annonce-ms.jar started by root in /app)
+2025-03-29 14:28:05.697 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - The following 1 profile is active: "dev"
+2025-03-29 14:28:06.451 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 14:28:06.560 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 101 ms. Found 3 JPA repository interfaces.
+2025-03-29 14:28:06.611 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-03-29 14:28:06.619 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-03-29 14:28:07.191 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-03-29 14:28:07.201 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 14:28:07.201 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-29 14:28:07.227 [] [] INFO  [main] o.a.c.c.C.[.[localhost].[/samagp] - Initializing Spring embedded WebApplicationContext
+2025-03-29 14:28:07.227 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1501 ms
+2025-03-29 14:28:07.450 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 14:28:07.493 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-29 14:28:07.516 [] [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 14:28:07.680 [] [] INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 14:28:07.698 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 14:28:07.813 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@34d72f06
+2025-03-29 14:28:07.814 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 14:28:07.837 [] [] WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 14:28:07.852 [] [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 14.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-29 14:28:08.475 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 14:28:08.605 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:28:08.968 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-29 14:28:09.429 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-03-29 14:28:09.535 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:28:09.536 [] [] INFO  [main] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 1 subscriber(s).
+2025-03-29 14:28:09.536 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:28:09.580 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/samagp'
+2025-03-29 14:28:09.591 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Started SamaGpApiApplication in 4.312 seconds (process running for 4.609)
+2025-03-29 14:40:14.433 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 14:40:14.437 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 14:40:14.461 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:40:14.462 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-29 14:40:14.462 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:40:14.468 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:40:14.469 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 14:40:14.471 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 14:40:27.224 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Starting SamaGpApiApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/sama-gp-annonce-ms.jar started by root in /app)
+2025-03-29 14:40:27.226 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - The following 1 profile is active: "dev"
+2025-03-29 14:40:28.038 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 14:40:28.140 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 95 ms. Found 3 JPA repository interfaces.
+2025-03-29 14:40:28.190 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-03-29 14:40:28.198 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-03-29 14:40:28.727 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-03-29 14:40:28.737 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 14:40:28.738 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-29 14:40:28.763 [] [] INFO  [main] o.a.c.c.C.[.[localhost].[/samagp] - Initializing Spring embedded WebApplicationContext
+2025-03-29 14:40:28.764 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1510 ms
+2025-03-29 14:40:28.991 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 14:40:29.030 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-29 14:40:29.051 [] [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 14:40:29.242 [] [] INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 14:40:29.262 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 14:40:29.402 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@a1a72d4
+2025-03-29 14:40:29.404 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 14:40:29.438 [] [] WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 14:40:29.461 [] [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 14.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-29 14:40:30.107 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 14:40:30.241 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:40:30.620 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-29 14:40:31.134 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-03-29 14:40:31.259 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:40:31.260 [] [] INFO  [main] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 1 subscriber(s).
+2025-03-29 14:40:31.260 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:40:31.305 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/samagp'
+2025-03-29 14:40:31.318 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Started SamaGpApiApplication in 4.5 seconds (process running for 4.79)
+2025-03-29 14:44:22.548 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 14:44:22.552 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 14:44:22.569 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:44:22.569 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-29 14:44:22.569 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:44:22.575 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:44:22.576 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 14:44:22.578 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-29 14:44:29.911 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Starting SamaGpApiApplication v0.0.1-SNAPSHOT using Java 17.0.2 with PID 1 (/app/sama-gp-annonce-ms.jar started by root in /app)
+2025-03-29 14:44:29.913 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - The following 1 profile is active: "dev"
+2025-03-29 14:44:30.652 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-03-29 14:44:30.759 [] [] INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 100 ms. Found 3 JPA repository interfaces.
+2025-03-29 14:44:30.807 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2025-03-29 14:44:30.815 [] [] INFO  [main] o.s.i.c.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2025-03-29 14:44:31.377 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-03-29 14:44:31.386 [] [] INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 14:44:31.386 [] [] INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-29 14:44:31.411 [] [] INFO  [main] o.a.c.c.C.[.[localhost].[/samagp] - Initializing Spring embedded WebApplicationContext
+2025-03-29 14:44:31.412 [] [] INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1472 ms
+2025-03-29 14:44:31.629 [] [] INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-03-29 14:44:31.682 [] [] INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-03-29 14:44:31.703 [] [] INFO  [main] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-03-29 14:44:31.859 [] [] INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-03-29 14:44:31.880 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-29 14:44:31.994 [] [] INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@34d72f06
+2025-03-29 14:44:31.995 [] [] INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-29 14:44:32.019 [] [] WARN  [main] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-29 14:44:32.034 [] [] INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 14.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-03-29 14:44:32.642 [] [] INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-03-29 14:44:32.804 [] [] INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:44:33.148 [] [] WARN  [main] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-29 14:44:33.644 [] [] INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-03-29 14:44:33.746 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:44:33.746 [] [] INFO  [main] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 1 subscriber(s).
+2025-03-29 14:44:33.746 [] [] INFO  [main] o.s.i.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:44:33.794 [] [] INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8082 (http) with context path '/samagp'
+2025-03-29 14:44:33.806 [] [] INFO  [main] sn.fr.samagp.SamaGpApiApplication - Started SamaGpApiApplication in 4.299 seconds (process running for 4.597)
+2025-03-29 14:53:01.446 [] [] INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 14:53:01.450 [] [] INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 14:53:01.466 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2025-03-29 14:53:01.466 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.c.PublishSubscribeChannel - Channel 'samagp-api.errorChannel' has 0 subscriber(s).
+2025-03-29 14:53:01.466 [] [] INFO  [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer - stopped bean '_org.springframework.integration.errorLogger'
+2025-03-29 14:53:01.472 [] [] INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-03-29 14:53:01.473 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-29 14:53:01.475 [] [] INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

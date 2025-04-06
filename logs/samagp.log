@@ -69,7 +69,7 @@
 2025-04-01 02:09:43.322 [] [] ERROR [http-nio-auto-1-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [/samagp] threw exception [Request processing failed: java.lang.RuntimeException: Annonce non trouvée!] with root cause
 java.lang.RuntimeException: Annonce non trouvée!
 	at sn.fr.samagp.services.impl.AnnonceServiceImp.deleteAnnonce(AnnonceServiceImp.java:78)
-	at sn.fr.samagp.application.AnnonceController.deleteAnnonce(AnnonceController.java:60)
+	at sn.fr.samagp.controller.AnnonceController.deleteAnnonce(AnnonceController.java:60)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -181,7 +181,7 @@ java.lang.RuntimeException: Annonce non trouvée!
 2025-04-01 02:13:36.835 [] [] ERROR [http-nio-auto-1-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [/samagp] threw exception [Request processing failed: java.lang.RuntimeException: Annonce non trouvée!] with root cause
 java.lang.RuntimeException: Annonce non trouvée!
 	at sn.fr.samagp.services.impl.AnnonceServiceImp.deleteAnnonce(AnnonceServiceImp.java:78)
-	at sn.fr.samagp.application.AnnonceController.deleteAnnonce(AnnonceController.java:60)
+	at sn.fr.samagp.controller.AnnonceController.deleteAnnonce(AnnonceController.java:60)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257)

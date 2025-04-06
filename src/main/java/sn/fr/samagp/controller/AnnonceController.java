@@ -1,10 +1,12 @@
-package sn.fr.samagp.application;
+package sn.fr.samagp.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sn.fr.samagp.controller.request.AnnonceSearchCriteria;
 import sn.fr.samagp.repository.dto.AnnonceDTO;
-import sn.fr.samagp.repository.response.AnnonceResponse;
+import sn.fr.samagp.controller.response.AnnonceResponse;
 import sn.fr.samagp.services.inter.IAnnonce;
 
 import java.util.List;
@@ -12,19 +14,26 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/annonces")
+@RequiredArgsConstructor
 public class AnnonceController {
 
     private final IAnnonce annonceService;
 
-    public AnnonceController(IAnnonce annonceService) {
-        this.annonceService = annonceService;
-    }
 
     // Récupérer toutes les annonces
     @GetMapping
     public ResponseEntity<List<AnnonceResponse>> getAllAnnonces() {
         List<AnnonceResponse> annonces = annonceService.getAllAnnonces();
         return ResponseEntity.ok(annonces);
+    }
+
+    /*TODO:
+    * Gestion des exceptions
+    * Validator for criteria
+    */
+    @GetMapping
+    public ResponseEntity<List<AnnonceResponse>> filter (@ModelAttribute AnnonceSearchCriteria criteria){
+        return ResponseEntity.ok(annonceService.filterByCriteria(criteria));
     }
 
     // Récupérer une annonce par son ID

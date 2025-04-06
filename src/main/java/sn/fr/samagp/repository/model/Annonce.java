@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -28,10 +27,14 @@ public class Annonce {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
     @NotBlank(message = "the ItineraireDetailsDepart is required")
-    private String ItineraireDetailsDepart;
-    @NotBlank(message = "the ItineraireDetailsArrive is required")
-    private String ItineraireDetailsArrive;
-    @NotBlank(message = "the description is required")
+    @JoinColumn()
+    @ManyToOne
+    private Itinerraire itineraire;
+    @Column()
+    private String itineraireDepartDetails;
+    @Column()
+    private String itineraireArriveeDetails;
+    @Column()
     private String description;
     @NotNull
     private LocalDateTime dateDepart;

@@ -12,11 +12,10 @@ import sn.fr.samagp.repository.AnnonceRepository;
 import sn.fr.samagp.repository.dto.AnnonceDTO;
 import sn.fr.samagp.repository.dto.AvisDTO;
 import sn.fr.samagp.repository.dto.ClientDTO;
-import sn.fr.samagp.repository.dto.ItineraireDTO;
 import sn.fr.samagp.repository.model.Annonce;
 import sn.fr.samagp.repository.model.Client;
 import sn.fr.samagp.repository.model.Profile;
-import sn.fr.samagp.repository.response.AnnonceResponse;
+import sn.fr.samagp.controller.response.AnnonceResponse;
 import sn.fr.samagp.validator.AnnonceValidator;
 
 import java.time.LocalDateTime;

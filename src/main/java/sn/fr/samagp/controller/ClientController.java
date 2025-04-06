@@ -1,4 +1,4 @@
-package sn.fr.samagp.application;
+package sn.fr.samagp.controller;
 
 public class ClientController {
 }

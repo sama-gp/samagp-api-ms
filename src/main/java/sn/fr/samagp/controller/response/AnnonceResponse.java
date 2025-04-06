@@ -1,4 +1,4 @@
-package sn.fr.samagp.repository.response;
+package sn.fr.samagp.controller.response;
 
 
 import lombok.AllArgsConstructor;

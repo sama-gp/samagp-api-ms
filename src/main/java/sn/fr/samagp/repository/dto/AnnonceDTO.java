@@ -6,17 +6,15 @@ import java.time.LocalDateTime;
 
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class AnnonceDTO {
+public record AnnonceDTO( ItineraireDTO itineraireDTO,
+         String itineraireDetailsDepart,
+         String itineraireDetailsArrive,
+         String description,
+         LocalDateTime dateDepart,
+         LocalDateTime dateArrive,
+         LocalDateTime updatedAt,
+         ClientDTO clientDTO) {
 
-    private ItineraireDTO itineraireDTO;
-    private String itineraireDetailsDepart;
-    private String itineraireDetailsArrive;
-    private String description;
-    private LocalDateTime dateDepart;
-    private LocalDateTime dateArrive;
-    private LocalDateTime updatedAt;
-    private ClientDTO clientDTO;
+
 }

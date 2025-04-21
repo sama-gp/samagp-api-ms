@@ -1,11 +1,8 @@
 package sn.fr.samagp.controller;
 
 
-<<<<<<< HEAD:src/main/java/sn/fr/samagp/controller/AnnonceController.java
 import lombok.RequiredArgsConstructor;
-=======
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
->>>>>>> d1acccb (feat(keycloak): Integration de keycloak):src/main/java/sn/fr/samagp/application/AnnonceController.java
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sn.fr.samagp.controller.request.AnnonceSearchCriteria;
@@ -18,11 +15,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/annonces")
-<<<<<<< HEAD:src/main/java/sn/fr/samagp/controller/AnnonceController.java
 @RequiredArgsConstructor
-=======
 @SecurityRequirement(name = "Keycloak")
->>>>>>> d1acccb (feat(keycloak): Integration de keycloak):src/main/java/sn/fr/samagp/application/AnnonceController.java
 public class AnnonceController {
 
     private final IAnnonce annonceService;

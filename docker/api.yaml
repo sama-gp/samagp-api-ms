@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: samagp-api
+    build: ..
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/samagp
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      LOG_PATH: /var/log/myapp
+      SPRING_APPLICATION_NAME: samagp-api
+      REALM: samagp
+      AUTH_SERVER_URL: http://keycloak
+      KEYCLOAK_USERNAME: admin
+      KEYCLOAK_PASSWORD: admin
+      GRANT_TYPE: password
+      KEYCLOAK_HOST: keycloak
+      KEYCLOAK_PORT: 8080
+      KEYCLOAK_INTERNAL_URL: http://keycloak:8080
+      KEYCLOAK_EXTERNAL_URL: http://localhost:8090
+    ports:
+      - "8082:8082"
+    volumes:
+      - ../logs:/var/log/myapp
+    networks:
+      - db-network
+    depends_on:
+      - postgres
+      - keycloak
+    restart: always
+
+networks:
+  db-network:
+    name: db-network

@@ -9,6 +9,16 @@ spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}
 
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          issuer-uri: "${KEYCLOAK_INTERNAL_URL:http://localhost:8090}/realms/samagp"
+#        opaque-token:
+#          introspection-uri: http://localhost:8090/realms/samagp/protocol/openid-connect/token/introspect
+#          client-id: samagp-api
+#          client-secret: samagp-secret
+
   application:
     name: samagp
 
@@ -37,9 +47,26 @@ server:
 springdoc:
   swagger-ui:
     path: /api/swagger-ui.html
+    oauth2:
+      client-id: samagp-api
+      client-secret: samagp-secret
+      use-pkce-with-authorization-code-grant: true
+      scopes: openid,profile
+    oauth:
+      authorization-url: "${KEYCLOAK_EXTERNAL_URL:http://localhost:8090}/realms/samagp/protocol/openid-connect/auth"
+      token-url: "${KEYCLOAK_INTERNAL_URL:http://localhost:8090}/realms/samagp/protocol/openid-connect/token"
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,metrics
+
+keycloak:
+  realm: ${REALM}
+  auth-server-url: ${AUTH_SERVER_URL}
+  resource: admin-cli
+  credentials:
+    grant-type: ${GRANT_TYPE}
+    username: ${KEYCLOAK_USERNAME}
+    password: ${KEYCLOAK_PASSWORD}

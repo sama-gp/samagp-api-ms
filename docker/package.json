@@ -1,0 +1,27 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Scripts pour démarrer et stopper les services docker",
+  "scripts": {
+    "lance-keycloak": "docker-compose -f postgres.yaml -f keycloak.yaml -p stack up -d --build keycloak",
+    "lance-api": "docker-compose -f api.yaml -p stack up -d --build api",
+    "lance-postgres": "docker-compose -f postgres.yaml -p stack up -d --build postgres",
+    "lance-observability": "docker-compose -f observability.yaml -p stack up -d --build",
+
+    "stop-keycloak": "docker-compose -f postgres.yaml -f keycloak.yaml -p stack stop keycloak",
+    "stop-api": "docker-compose -f api.yaml -p stack stop api",
+    "stop-postgres": "docker-compose -f postgres.yaml -p stack stop postgres",
+    "stop-observability": "docker-compose -f observability.yaml -p stack stop",
+
+    "stack": "docker-compose -f postgres.yaml -f keycloak.yaml -f api.yaml -p stack up -d --build",
+    "stop-stack": "docker-compose -f postgres.yaml -f keycloak.yaml -f api.yaml -p stack down --remove-orphans",
+    "clean-all": "docker-compose -f postgres.yaml -f keycloak.yaml -f api.yaml down -v --remove-orphans",
+
+    "lance-all": "docker-compose -f postgres.yaml -f keycloak.yaml -f api.yaml -f observability.yaml -p stack up -d --build",
+    "stop-all": "docker-compose -f postgres.yaml -f keycloak.yaml -f api.yaml -f observability.yaml -p stack down --remove-orphans"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

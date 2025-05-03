@@ -1,0 +1,77 @@
+{
+  "realm": "samagp",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "gp"
+      },
+      {
+        "name": "client"
+      }
+    ]
+  },
+  "users": [
+    {
+      "username": "samagp",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Sama",
+      "lastName": "GP",
+      "email": "samagp2023@gmail.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "samagp",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "ovd",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Omar",
+      "lastName": "VD",
+      "email": "ovd@gmail.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "ovd",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "gp",
+        "client"
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "samagp-api",
+      "secret": "samagp-secret",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "redirectUris": [
+        "http://localhost:8082/*"
+      ],
+      "serviceAccountsEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "webOrigins": [
+        "*"
+      ]
+    },
+    {
+      "clientId": "samagp-frontend",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "redirectUris": ["http://localhost:4200/*"],
+      "webOrigins": ["*"],
+      "directAccessGrantsEnabled": true
+    }
+  ]
+}

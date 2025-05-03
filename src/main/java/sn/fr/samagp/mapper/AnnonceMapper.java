@@ -7,7 +7,7 @@ import sn.fr.samagp.repository.dto.AnnonceDTO;
 import sn.fr.samagp.repository.model.Annonce;
 import sn.fr.samagp.controller.response.AnnonceResponse;
 
-@Mapper(componentModel = "spring", uses = { ClientMapper.class})
+@Mapper(componentModel = "spring", uses = { ClientMapper.class,ItineraireMapper.class})
 public interface AnnonceMapper {
     AnnonceMapper INSTANCE = Mappers.getMapper(AnnonceMapper.class);
 

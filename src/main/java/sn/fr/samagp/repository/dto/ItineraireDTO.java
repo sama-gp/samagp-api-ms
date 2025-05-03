@@ -1,4 +1,5 @@
 package sn.fr.samagp.repository.dto;
 
 public class ItineraireDTO{
+
 }

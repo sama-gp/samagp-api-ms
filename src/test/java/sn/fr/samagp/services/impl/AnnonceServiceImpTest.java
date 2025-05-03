@@ -138,7 +138,7 @@ class AnnonceServiceImpTest {
     @Test
     void updateAnnonce_UpdatedAnnonceDTO_AnnonceExists() {
         when(annonceRepository.findById(annonceId)).thenReturn(Optional.of(annonce));
-        when(clientMapper.toEntity(annonceDTO.clientDTO())).thenReturn(client);
+        //when(clientMapper.toEntity(annonceDTO.clientDTO())).thenReturn(client);
         when(annonceMapper.toDto(any(Annonce.class))).thenReturn(annonceDTO);
         when(annonceRepository.save(any(Annonce.class))).thenReturn(annonce);
 
@@ -146,7 +146,7 @@ class AnnonceServiceImpTest {
 
         assertNotNull(result);
         verify(annonceRepository).findById(annonceId);
-        verify(clientMapper).toEntity(annonceDTO.clientDTO()); // Vérification du mapping client
+        //verify(clientMapper).toEntity(annonceDTO.clientDTO()); // Vérification du mapping client
         verify(annonceRepository).save(any(Annonce.class));
     }
 

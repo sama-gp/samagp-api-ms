@@ -48,6 +48,26 @@ services:
       - db-network
     restart: unless-stopped
 
+  # Flyway
+  flyway:
+    image: flyway/flyway:9.22
+    container_name: flyway
+    command: -connectRetries=60 migrate
+    volumes:
+      - ./src/resources/migration/structure:/flyway/sql/structure
+      - ./src/resources/migration/data:/flyway/sql/data
+    environment:
+      - FLYWAY_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      - FLYWAY_USER=${POSTGRES_USER}
+      - FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
+      - FLYWAY_BASELINE_ON_MIGRATE=true
+      - FLYWAY_SCHEMAS=public
+    depends_on:
+      - postgres
+    networks:
+      - db-network
+
+
   api:
     container_name: samagp-api
     build: .

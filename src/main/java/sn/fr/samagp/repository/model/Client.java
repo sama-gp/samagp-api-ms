@@ -45,15 +45,5 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.DETACH)
     private List<Annonce> annonces = new ArrayList<>();
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "favoris", // Nom de la table intermédiaire
-//            joinColumns = @JoinColumn(name = "client_id"), // Clé étrangère pour Client
-//            inverseJoinColumns = @JoinColumn(name = "itineraire_id") // Clé étrangère pour Itinéraire
-//    )
-//    @JsonIgnore
-//    private List<Itineraire> favoris = new ArrayList<>();
-
-
 
 }

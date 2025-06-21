@@ -9,6 +9,12 @@ spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}
 
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:/data/schema.sql
+      schema-locations: classpath:/data/schema.sql
+
   security:
     oauth2:
       resource server:
@@ -29,12 +35,12 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         jdbc:
-          time_zone: UTC
+          time_zone: Europe/Paris
         globally_quoted_identifiers: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
@@ -64,9 +70,14 @@ management:
 
 keycloak:
   realm: ${REALM}
-  auth-server-url: ${AUTH_SERVER_URL}
+  auth-server-url: ${AUTH_SERVER_URL:http://localhost:8090/auth}
   resource: admin-cli
+  client-id: ${KEYCLOAK_CLIENT_ID:admin-cli}
+  client-secret: samagp-secret
   credentials:
     grant-type: ${GRANT_TYPE}
     username: ${KEYCLOAK_USERNAME}
     password: ${KEYCLOAK_PASSWORD}
+  admin:
+    username: samagp
+    password: samagp

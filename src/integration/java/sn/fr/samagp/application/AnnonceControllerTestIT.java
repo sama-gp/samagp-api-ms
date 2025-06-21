@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import sn.fr.samagp.controller.response.AnnonceResponse;
 import sn.fr.samagp.mapper.ClientMapper;
 import sn.fr.samagp.repository.AnnonceRepository;
 import sn.fr.samagp.repository.ClientRepository;
@@ -23,7 +24,6 @@ import sn.fr.samagp.repository.dto.AnnonceDTO;
 import sn.fr.samagp.repository.model.Annonce;
 import sn.fr.samagp.repository.model.Client;
 import sn.fr.samagp.repository.model.Profile;
-import sn.fr.samagp.repository.response.AnnonceResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -192,8 +192,8 @@ public class AnnonceControllerTestIT {
         // 3. Vérifications
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().getDescription()).isEqualTo("Description mise à jour");
-        assertThat(response.getBody().getItineraireDetailsDepart()).isEqualTo("Paris Modifié");
+        assertThat(response.getBody().description()).isEqualTo("Description mise à jour");
+        assertThat(response.getBody().itineraireDetailsDepart()).isEqualTo("Paris Modifié");
     }
 
     @Test

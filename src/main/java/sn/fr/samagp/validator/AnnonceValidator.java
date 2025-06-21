@@ -26,12 +26,16 @@ public class AnnonceValidator implements IEntityValidator<Annonce> {
         Set<ConstraintViolation<Annonce>> violations = validator.validate(annonce);
 
         if (!violations.isEmpty()) {
-            // Collecter les messages d'erreur
+            violations.forEach(v -> {
+                System.err.println("Violation sur " + v.getPropertyPath() + " : " + v.getMessage());
+            });
+
             List<String> errorMessages = violations.stream()
-                    .map(ConstraintViolation::getMessage)
+                    .map(v -> v.getPropertyPath() + ": " + v.getMessage())
                     .collect(Collectors.toList());
 
             throw new ValidationEntityException(errorMessages);
         }
     }
+
 }

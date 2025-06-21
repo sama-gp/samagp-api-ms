@@ -7,18 +7,20 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Table (name = "TYPE_ZONE_GEO")
 @Entity
+@Table(name = "type_zone_geo") // Nom de table en minuscules pour PostgreSQL
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TypeZoneGeo implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "code")
     private String code;
-    @Column
+
+    @Column(name = "libelle")
     private String libelle;
+
     @ManyToOne
-    @JoinColumn ()
+    @JoinColumn(name = "parent_code", referencedColumnName = "code")
     private TypeZoneGeo parent;
 }

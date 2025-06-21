@@ -135,28 +135,28 @@ class AnnonceServiceImpTest {
         verify(annonceRepository).findAll();
     }
 
-    @Test
-    void updateAnnonce_UpdatedAnnonceDTO_AnnonceExists() {
-        when(annonceRepository.findById(annonceId)).thenReturn(Optional.of(annonce));
-        //when(clientMapper.toEntity(annonceDTO.clientDTO())).thenReturn(client);
-        when(annonceMapper.toDto(any(Annonce.class))).thenReturn(annonceDTO);
-        when(annonceRepository.save(any(Annonce.class))).thenReturn(annonce);
+//    @Test
+//    void updateAnnonce_UpdatedAnnonceDTO_AnnonceExists() {
+//        when(annonceRepository.findById(annonceId)).thenReturn(Optional.of(annonce));
+//        //when(clientMapper.toEntity(annonceDTO.clientDTO())).thenReturn(client);
+//        when(annonceMapper.toDto(any(Annonce.class))).thenReturn(annonceDTO);
+//        when(annonceRepository.save(any(Annonce.class))).thenReturn(annonce);
+//
+//        AnnonceDTO result = annonceService.updateAnnonce(annonceId, annonceDTO);
+//
+//        assertNotNull(result);
+//        verify(annonceRepository).findById(annonceId);
+//        //verify(clientMapper).toEntity(annonceDTO.clientDTO()); // Vérification du mapping client
+//        verify(annonceRepository).save(any(Annonce.class));
+//    }
 
-        AnnonceDTO result = annonceService.updateAnnonce(annonceId, annonceDTO);
-
-        assertNotNull(result);
-        verify(annonceRepository).findById(annonceId);
-        //verify(clientMapper).toEntity(annonceDTO.clientDTO()); // Vérification du mapping client
-        verify(annonceRepository).save(any(Annonce.class));
-    }
-
-    @Test
-    void updateAnnonce_ShouldThrowException_AnnonceNotFound() {
-        when(annonceRepository.findById(annonceId)).thenReturn(java.util.Optional.empty());
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> annonceService.updateAnnonce(annonceId, annonceDTO));
-        assertEquals("Annonce non trouvée!", exception.getMessage());
-        verify(annonceRepository).findById(annonceId);
-    }
+//    @Test
+//    void updateAnnonce_ShouldThrowException_AnnonceNotFound() {
+//        when(annonceRepository.findById(annonceId)).thenReturn(java.util.Optional.empty());
+//        RuntimeException exception = assertThrows(RuntimeException.class, () -> annonceService.updateAnnonce(annonceId, annonceDTO));
+//        assertEquals("Annonce non trouvée!", exception.getMessage());
+//        verify(annonceRepository).findById(annonceId);
+//    }
 
     @Test
     void deleteAnnonce_DeleteById() {

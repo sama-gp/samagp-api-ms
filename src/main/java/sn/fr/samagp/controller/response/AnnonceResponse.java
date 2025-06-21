@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sn.fr.samagp.repository.dto.AvisDTO;
-import sn.fr.samagp.repository.dto.ClientDTO;
-import sn.fr.samagp.repository.dto.ItineraireDTO;
+import sn.fr.samagp.repository.dto.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,5 +26,7 @@ public class AnnonceResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<AvisDTO> avis;
+    private List<CommentaireDto> commentaires;
     private ClientDTO client;
+    private TarificationDTO tarification;
 }

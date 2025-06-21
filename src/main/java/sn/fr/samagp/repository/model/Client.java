@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,20 +32,51 @@ public class Client {
     @NotBlank(message = "The email is required")
     private String email;
 
-    @NotBlank(message = "The password is required")
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Profile profile;
 
-    @NotBlank(message = "The phone number is required")
-    private String phone;
+    @ElementCollection
+    @CollectionTable(name = "client_phones", joinColumns = @JoinColumn(name = "client_id"))
+    @Column(name = "phone_number")
+    private List<String> phone = new ArrayList<>();
 
-    @NotBlank(message = "The address is required")
-    private String address;
+
+    @ElementCollection
+    @CollectionTable(name = "client_addresses", joinColumns = @JoinColumn(name = "client_id"))
+    private List<Adresse> address = new ArrayList<>();;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.DETACH)
     private List<Annonce> annonces = new ArrayList<>();
+
+    @OneToMany(mappedBy = "auteur", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Commentaire> commentaires = new ArrayList<>();
+
+    @Column(name = "keycloak_id", unique = true, nullable = false)
+    @NotBlank
+    @EqualsAndHashCode.Include
+    private String keycloakId;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    public void addCommentaire(Commentaire commentaire) {
+        commentaires.add(commentaire);
+        commentaire.setAuteur(this);
+    }
+
+    public void removeCommentaire(Commentaire commentaire) {
+        commentaires.remove(commentaire);
+        commentaire.setAuteur(null);
+    }
+
+    // Méthode pour obtenir le nom complet
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
 //    @ManyToMany
 //    @JoinTable(

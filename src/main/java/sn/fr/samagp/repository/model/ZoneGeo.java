@@ -6,21 +6,23 @@ import lombok.*;
 
 
 @Entity
-@Table(name = "ZONES_GEOS")
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "zones_geos")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ZoneGeo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
+
+    @Column(name = "libelle")
     private String libelle;
+
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "type_code", referencedColumnName = "code")
     private TypeZoneGeo type;
+
     @ManyToOne
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
     private ZoneGeo parent;
 }

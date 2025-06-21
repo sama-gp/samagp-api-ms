@@ -13,7 +13,8 @@ public record AnnonceDTO( ItineraireDTO itineraireDTO,
          LocalDateTime dateDepart,
          LocalDateTime dateArrive,
          LocalDateTime updatedAt,
-         ClientDTO clientDTO) {
+         ClientDTO clientDTO,
+         TarificationDTO tarificationDTO) {
 
 
 }

@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import sn.fr.samagp.repository.model.Annonce;
+import sn.fr.samagp.repository.model.Client;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,5 +16,8 @@ public interface AnnonceRepository extends JpaRepository<Annonce, UUID> , JpaSpe
     List<Annonce> findByClientId(UUID clientId);
 //    @Query("SELECT a FROM Annonce a WHERE a.id = :id")
 //    Optional<Annonce> findByAltId(@Param("id") UUID id);
+    List<Annonce> findByClientOrderByDateDepartDesc(Client client);
+
+    List<Annonce> findByDateDepartBetween(LocalDateTime start, LocalDateTime end);
 
 }

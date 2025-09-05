@@ -6,21 +6,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import sn.fr.samagp.mapper.AnnonceMapper;
 import sn.fr.samagp.mapper.ClientMapper;
 import sn.fr.samagp.repository.AnnonceRepository;
+import sn.fr.samagp.repository.ClientRepository;
 import sn.fr.samagp.repository.dto.AnnonceDTO;
 import sn.fr.samagp.repository.dto.AvisDTO;
 import sn.fr.samagp.repository.dto.ClientDTO;
-import sn.fr.samagp.repository.model.Annonce;
-import sn.fr.samagp.repository.model.Client;
-import sn.fr.samagp.repository.model.Profile;
+import sn.fr.samagp.repository.model.*;
 import sn.fr.samagp.controller.response.AnnonceResponse;
+import sn.fr.samagp.services.inter.ISecurityService;
 import sn.fr.samagp.validator.AnnonceValidator;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +44,13 @@ class AnnonceServiceImpTest {
     @Mock
     private AnnonceValidator annonceValidator;
 
+    @Mock
+    private ClientRepository clientRepository;
+
+    @Mock
+    private ISecurityService securityService;
+
+
     @InjectMocks
     private AnnonceServiceImp annonceService;
 
@@ -49,13 +59,32 @@ class AnnonceServiceImpTest {
     private AnnonceDTO annonceDTO;
     private AnnonceResponse annonceResponse;
     private Client client;
+
+
     @BeforeEach
     void setUp() {
         annonceId = UUID.randomUUID();
         annonce = new Annonce();
+
+        // Création d'un ClientDTO valide
         ClientDTO clientDTO = new ClientDTO(
-                UUID.randomUUID(), "John", "Doe", "john.doe@example.com", "password",
-                "0123456789", "123 Main Street", Profile.GP, List.of(), List.of()
+                UUID.randomUUID(),
+                "John",
+                "Doe",
+                "john.doe@example.com",
+                "password",
+                List.of("0123456789"),
+                List.of(new Adresse("123 Main St", "Apt 1", "Paris", "75001", "France", AdresseType.DOMICILE, true)),
+                Profile.USER,
+                LocalDateTime.now(),
+                List.of(),
+                List.of(),
+                "keycloak123",
+                Set.of(),
+                Set.of(),
+                0,
+                0,
+                false
         );
 
         client = new Client();
@@ -67,8 +96,10 @@ class AnnonceServiceImpTest {
         client.setPhone(clientDTO.getPhone());
         client.setAddress(clientDTO.getAddress());
         client.setProfile(clientDTO.getProfile());
-        List<AvisDTO> avisList = List.of();
+
+        // Construction de l'annonceDTO avec un clientDTO valide
         annonceDTO = AnnonceDTO.builder()
+                .clientDTO(clientDTO)
                 .itineraireDTO(null)
                 .itineraireDetailsDepart("Gare du Nord")
                 .itineraireDetailsArrive("Champs-Élysées")
@@ -77,6 +108,7 @@ class AnnonceServiceImpTest {
                 .dateArrive(LocalDateTime.now().plusHours(2))
                 .updatedAt(LocalDateTime.now())
                 .build();
+
         annonceResponse = AnnonceResponse.builder()
                 .id(annonceId)
                 .itineraire(null)
@@ -87,19 +119,38 @@ class AnnonceServiceImpTest {
                 .dateArrive(LocalDateTime.now().plusHours(2))
                 .createdAt(LocalDateTime.now().minusDays(1))
                 .updatedAt(LocalDateTime.now())
-                .avis(avisList)
+                .avis(List.of())
                 .client(clientDTO)
                 .build();
-
     }
 
     @Test
     void createAnnonceDTO() {
+        // 1. Mock de l'authentification
+        JwtAuthenticationToken authentication = mock(JwtAuthenticationToken.class);
+        Jwt jwt = mock(Jwt.class);
+
+        when(securityService.getAuthentication()).thenReturn(authentication);
+        when(authentication.getToken()).thenReturn(jwt);
+        when(jwt.getSubject()).thenReturn("user123");
+        when(jwt.getClaimAsString("email")).thenReturn("john.doe@example.com");
+
+        // 2. Mock du clientRepository
+        when(clientRepository.findByEmail("john.doe@example.com")).thenReturn(Optional.of(client));
+
+        // 3. Mock des autres dépendances
         when(annonceMapper.toEntity(annonceDTO)).thenReturn(annonce);
         when(annonceRepository.save(annonce)).thenReturn(annonce);
         when(annonceMapper.toResponse(annonce)).thenReturn(annonceResponse);
+
+        // 4. Exécution du test
         AnnonceResponse result = annonceService.createAnnonce(annonceDTO);
+
+        // 5. Vérifications
         assertNotNull(result);
+        assertEquals(annonceResponse, result);
+        verify(securityService).getAuthentication();
+        verify(clientRepository).findByEmail("john.doe@example.com");
         verify(annonceValidator).validate(annonce);
         verify(annonceRepository).save(annonce);
     }

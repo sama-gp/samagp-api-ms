@@ -11,6 +11,7 @@ import sn.fr.samagp.repository.model.Profile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -44,5 +45,12 @@ public class ClientDTO {
         private List<Long> annoncesIds;
         private List<Long> favorisIds;
         private String keycloakId;
+
+        // Champs pour le suivi
+        private Set<UUID> followingIds;
+        private Set<UUID> followerIds;
+        private int followingCount;
+        private int followersCount;
+        private boolean following; ;
 }
 

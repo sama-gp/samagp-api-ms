@@ -1,9 +1,14 @@
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.6
+    #image: quay.io/keycloak/keycloak:26.0.4
     container_name: keycloak
     environment:
       # Keycloak settings
+      KC_HTTP_CORS_ALLOWED_ORIGINS: "http://localhost:4200, http://localhost:8082, http://localhost:8090"
+      KC_HTTP_CORS_ALLOWED_METHODS: "GET,POST,PUT,DELETE,OPTIONS"
+      KC_HTTP_CORS_ALLOWED_HEADERS: "*"
+      KC_HTTP_CORS_EXPOSED_HEADERS: "*"
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_DB: ${KC_DB}
@@ -20,6 +25,8 @@ services:
     volumes:
       - keycloak-data:/opt/keycloak/data
       - ./docker/config/keycloak:/opt/keycloak/data/import
+      - ./themes/event:/opt/keycloak/providers/
+      - ./themes/theme/samagp:/opt/keycloak/themes/samagp
     command: start-dev --import-realm
     networks:
       - db-network
@@ -76,6 +83,22 @@ services:
       - postgres
       - keycloak
     restart: always
+
+  samagp-angular:
+    build:
+      context: ../test/samagp-angular
+      dockerfile: Dockerfile
+    container_name: samagp-angular
+    ports:
+      - "4200:80"
+    environment:
+      - API_BASE_URL="http://samagp-api:8082"
+      - keycloakUrl="http://keycloak:8080/auth"
+    networks:
+      - db-network
+    depends_on:
+      - api
+      - keycloak
 
 networks:
   db-network:

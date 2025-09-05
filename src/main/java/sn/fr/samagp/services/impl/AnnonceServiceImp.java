@@ -1,6 +1,8 @@
 package sn.fr.samagp.services.impl;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +17,7 @@ import sn.fr.samagp.mapper.ClientMapper;
 import sn.fr.samagp.mapper.ItineraireMapper;
 import sn.fr.samagp.mapper.TarificationMapper;
 import sn.fr.samagp.repository.*;
-import sn.fr.samagp.repository.dto.AnnonceDTO;
-import sn.fr.samagp.repository.dto.ClientDTO;
-import sn.fr.samagp.repository.dto.UpdateAnnonceDTO;
-import sn.fr.samagp.repository.dto.ZoneGeoDTO;
+import sn.fr.samagp.repository.dto.*;
 import sn.fr.samagp.repository.model.*;
 import sn.fr.samagp.controller.request.AnnonceSearchCriteria;
 import sn.fr.samagp.controller.response.AnnonceResponse;
@@ -161,7 +160,6 @@ public class AnnonceServiceImp implements IAnnonce {
                 .collect(Collectors.toList());
     }
 
-    @Override
     public AnnonceDTO updateAnnonce(UUID id, UpdateAnnonceDTO updateDTO) {
         return annonceRepository.findById(id)
                 .map(existingAnnonce -> {
@@ -169,12 +167,13 @@ public class AnnonceServiceImp implements IAnnonce {
                     log.info("Avant mise à jour - Annonce: {}", existingAnnonce);
                     log.info("Avant mise à jour - updateDTO: {}", updateDTO);
 
-                    // Mise à jour
-
+                    // Mise à jour des champs de base
                     annonceMapper.updateAnnonceFromDto(updateDTO, existingAnnonce);
                     existingAnnonce.setUpdatedAt(LocalDateTime.now());
-                    if(updateDTO.tarificationDTO() != null) {
-                        if(existingAnnonce.getTarification() == null) {
+
+                    // Mise à jour de la tarification
+                    if (updateDTO.tarificationDTO() != null) {
+                        if (existingAnnonce.getTarification() == null) {
                             // Créer une nouvelle tarification
                             Tarification newTarif = tarificationMapper.toEntity(updateDTO.tarificationDTO());
                             existingAnnonce.setTarification(newTarif);
@@ -183,7 +182,23 @@ public class AnnonceServiceImp implements IAnnonce {
                             Tarification existingTarif = existingAnnonce.getTarification();
                             existingTarif.setPrixParKg(updateDTO.tarificationDTO().prixParKg());
                             existingTarif.setDevise(Devise.valueOf(updateDTO.tarificationDTO().devise()));
-                            existingAnnonce.setTarification(existingTarif);
+
+                            // Gestion des frais supplémentaires
+                            if (updateDTO.tarificationDTO().fraisSupplementaires() != null
+                                    && !updateDTO.tarificationDTO().fraisSupplementaires().isEmpty()) {
+
+                                // Supprimer les frais existants
+                                existingTarif.getFraisSupplementaires().clear();
+
+                                // Ajouter les nouveaux frais
+                                for (FraisSupplementaireDTO fraisDTO : updateDTO.tarificationDTO().fraisSupplementaires()) {
+                                    FraisSupplementaire frais = new FraisSupplementaire();
+                                    frais.setType(fraisDTO.type());
+                                    frais.setPrix(fraisDTO.prix());
+                                    frais.setTarification(existingTarif);
+                                    existingTarif.addFraisSupplementaire(frais);
+                                }
+                            }
                         }
                     }
 
@@ -370,24 +385,99 @@ public class AnnonceServiceImp implements IAnnonce {
                 .collect(Collectors.toList());
     }
 
-    private Specification<Annonce> buildAnnonceCriteriaQuerySpecifications (AnnonceSearchCriteria criteria){
-      return   (criteriaRoot, query, criteriaBuilder) -> {
+//    private Specification<Annonce> buildAnnonceCriteriaQuerySpecifications (AnnonceSearchCriteria criteria){
+//      return   (criteriaRoot, query, criteriaBuilder) -> {
+//            List<Predicate> predicates = new ArrayList<>();
+//
+//            if (criteria.itineraireId() != null)
+//                predicates.add(criteriaBuilder.equal(criteriaRoot.get("itineraire").get("id"), criteria.itineraireId()));
+//
+//            if (criteria.dateDepart() != null)
+//                predicates.add(criteriaBuilder.greaterThanOrEqualTo(criteriaRoot.get("dateDepart"), criteria.dateDepart()));
+//            if (criteria.dateArrivee() != null)
+//                predicates.add(criteriaBuilder.lessThanOrEqualTo(criteriaRoot.get("dateArrive"), criteria.dateArrivee()));
+//
+//            if (criteria.depart() != null)
+//                predicates.add(criteriaBuilder.equal(criteriaRoot.get("itineraire").get("id").get("departId"), criteria.depart().id()));
+//            if (criteria.arrivee() != null)
+//                predicates.add(criteriaBuilder.equal(criteriaRoot.get("itineraire").get("id").get("arriveeId"), criteria.arrivee().id()));
+//
+//            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+//        };
+//    }
+
+    private Specification<Annonce> buildAnnonceCriteriaQuerySpecifications(AnnonceSearchCriteria criteria) {
+        return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (criteria.itineraireId() != null)
-                predicates.add(criteriaBuilder.equal(criteriaRoot.get("itineraire").get("id"), criteria.itineraireId()));
+            // Jointure avec Itineraire
+            Join<Annonce, Itinerraire> itineraire = root.join("itineraire", JoinType.LEFT);
 
-            if (criteria.dateDepart() != null)
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(criteriaRoot.get("dateDepart"), criteria.dateDepart()));
-            if (criteria.dateArrivee() != null)
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(criteriaRoot.get("dateArrive"), criteria.dateArrivee()));
+            // Critère sur l'ID d'itinéraire
+            if (criteria.itineraireId() != null) {
+                predicates.add(cb.equal(itineraire.get("id"), criteria.itineraireId()));
+            }
 
-            if (criteria.depart() != null)
-                predicates.add(criteriaBuilder.equal(criteriaRoot.get("itineraire").get("id").get("departId"), criteria.depart().id()));
-            if (criteria.arrivee() != null)
-                predicates.add(criteriaBuilder.equal(criteriaRoot.get("itineraire").get("id").get("arriveeId"), criteria.arrivee().id()));
+            // Critères sur les dates
+            if (criteria.dateDepart() != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("dateDepart"), criteria.dateDepart()));
+            }
+            if (criteria.dateArrivee() != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("dateArrive"), criteria.dateArrivee()));
+            }
 
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            // Critère sur la zone de départ
+            if (criteria.depart() != null) {
+                Join<Itinerraire, ZoneGeo> depart = itineraire.join("depart", JoinType.LEFT);
+
+                if (criteria.depart().id() != null) {
+                    predicates.add(cb.equal(depart.get("id"), criteria.depart().id()));
+                } else if (criteria.depart().libelle() != null) {
+                    Predicate libellePredicate = cb.like(
+                            cb.lower(depart.get("libelle")),
+                            "%" + criteria.depart().libelle().toLowerCase() + "%"
+                    );
+
+                    // Vérification si on doit inclure les zones parentes
+                    if (criteria.includeParentZones() != null && criteria.includeParentZones()) {
+                        Join<ZoneGeo, ZoneGeo> parent = depart.join("parent", JoinType.LEFT);
+                        Predicate parentPredicate = cb.like(
+                                cb.lower(parent.get("libelle")),
+                                "%" + criteria.depart().libelle().toLowerCase() + "%"
+                        );
+                        predicates.add(cb.or(libellePredicate, parentPredicate));
+                    } else {
+                        predicates.add(libellePredicate);
+                    }
+                }
+            }
+
+            // Critère sur la zone d'arrivée (même logique que départ)
+            if (criteria.arrivee() != null) {
+                Join<Itinerraire, ZoneGeo> arrivee = itineraire.join("arrivee", JoinType.LEFT);
+
+                if (criteria.arrivee().id() != null) {
+                    predicates.add(cb.equal(arrivee.get("id"), criteria.arrivee().id()));
+                } else if (criteria.arrivee().libelle() != null) {
+                    Predicate libellePredicate = cb.like(
+                            cb.lower(arrivee.get("libelle")),
+                            "%" + criteria.arrivee().libelle().toLowerCase() + "%"
+                    );
+
+                    if (criteria.includeParentZones() != null && criteria.includeParentZones()) {
+                        Join<ZoneGeo, ZoneGeo> parent = arrivee.join("parent", JoinType.LEFT);
+                        Predicate parentPredicate = cb.like(
+                                cb.lower(parent.get("libelle")),
+                                "%" + criteria.arrivee().libelle().toLowerCase() + "%"
+                        );
+                        predicates.add(cb.or(libellePredicate, parentPredicate));
+                    } else {
+                        predicates.add(libellePredicate);
+                    }
+                }
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
         };
     }
 }

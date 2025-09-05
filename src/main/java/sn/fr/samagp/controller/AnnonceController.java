@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +14,10 @@ import sn.fr.samagp.controller.request.AnnonceSearchCriteria;
 import sn.fr.samagp.repository.dto.AnnonceDTO;
 import sn.fr.samagp.controller.response.AnnonceResponse;
 import sn.fr.samagp.repository.dto.UpdateAnnonceDTO;
+import sn.fr.samagp.repository.dto.ZoneGeoDTO;
 import sn.fr.samagp.services.inter.IAnnonce;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,7 +58,36 @@ public class AnnonceController {
     * Validator for criteria
     */
     @GetMapping("/search")
-    public ResponseEntity<List<AnnonceResponse>> filter (@ModelAttribute AnnonceSearchCriteria criteria){
+    public ResponseEntity<List<AnnonceResponse>> filter(
+            @RequestParam(required = false) UUID itineraireId,
+            @RequestParam(required = false) Long departId,
+            @RequestParam(required = false) String departLibelle,
+            @RequestParam(required = false) Long arriveeId,
+            @RequestParam(required = false) String arriveeLibelle,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") LocalDateTime dateDepart,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") LocalDateTime dateArrivee,
+            @RequestParam(required = false) Boolean includeParentZones,
+            @RequestParam(required = false) String description) {
+
+        ZoneGeoDTO depart = null;
+        if (departId != null || departLibelle != null) {
+            depart = new ZoneGeoDTO(departId, departLibelle, null, null);
+        }
+
+        ZoneGeoDTO arrivee = null;
+        if (arriveeId != null || arriveeLibelle != null) {
+            arrivee = new ZoneGeoDTO(arriveeId, arriveeLibelle, null, null);
+        }
+
+        AnnonceSearchCriteria criteria = AnnonceSearchCriteria.builder()
+                .itineraireId(itineraireId)
+                .depart(depart)
+                .arrivee(arrivee)
+                .dateDepart(dateDepart)
+                .dateArrivee(dateArrivee)
+                .includeParentZones(includeParentZones)
+                .build();
+
         return ResponseEntity.ok(annonceService.filterByCriteria(criteria));
     }
 

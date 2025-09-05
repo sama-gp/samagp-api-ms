@@ -15,5 +15,6 @@ public record AnnonceSearchCriteria (
         @DateTimeFormat (pattern = "ddMMyyyy")
         LocalDateTime dateDepart,
         @DateTimeFormat (pattern = "ddMMyyyy")
-        LocalDateTime dateArrivee){
+        LocalDateTime dateArrivee,
+        Boolean includeParentZones){
 }

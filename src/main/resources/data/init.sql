@@ -1,7 +1,7 @@
 -- 1. Création des types de zones géographiques
 -- 1. Suppression des contraintes de clé étrangère temporairement
-ALTER TABLE zones_geos DROP CONSTRAINT IF EXISTS fk_zone_geo_type;
-ALTER TABLE type_zone_geo DROP CONSTRAINT IF EXISTS fk_type_parent;
+--ALTER TABLE zones_geos DROP CONSTRAINT IF EXISTS fk_zone_geo_type;
+--ALTER TABLE type_zone_geo DROP CONSTRAINT IF EXISTS fk_type_parent;
 
 -- 2. Insertion des types SEULEMENT s'ils n'existent pas
 INSERT INTO type_zone_geo (code, libelle, parent_code)

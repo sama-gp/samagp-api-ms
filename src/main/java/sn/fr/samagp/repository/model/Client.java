@@ -9,9 +9,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "CLIENTS")
@@ -63,14 +61,27 @@ public class Client {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    public void addCommentaire(Commentaire commentaire) {
-        commentaires.add(commentaire);
-        commentaire.setAuteur(this);
+    @ManyToMany
+    @JoinTable(
+            name = "client_following",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "followed_id")
+    )
+    @JsonIgnore
+    private Set<Client> following = new HashSet<>();
+
+    @ManyToMany(mappedBy = "following")
+    @JsonIgnore
+    private Set<Client> followers = new HashSet<>();
+
+    public void follow(Client clientToFollow) {
+        this.following.add(clientToFollow);
+        clientToFollow.getFollowers().add(this);
     }
 
-    public void removeCommentaire(Commentaire commentaire) {
-        commentaires.remove(commentaire);
-        commentaire.setAuteur(null);
+    public void unfollow(Client clientToUnfollow) {
+        this.following.remove(clientToUnfollow);
+        clientToUnfollow.getFollowers().remove(this);
     }
 
     // Méthode pour obtenir le nom complet

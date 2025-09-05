@@ -4,13 +4,64 @@
   "roles": {
     "realm": [
       {
-        "name": "gp"
+        "name": "gp",
+        "description": "Role pour les annonceurs"
       },
       {
-        "name": "client"
+        "name": "client",
+        "description": "Role pour les clients"
+      },
+      {
+        "name": "default-roles-samagp",
+        "composite": true,
+        "clientRole": false,
+        "composites": {
+          "realm": ["gp", "client"]
+        }
       }
     ]
   },
+  "authenticationFlows": [
+    {
+      "alias": "registrationWithRole",
+      "description": "Registration flow with role assignment",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "registration-profile",
+          "requirement": "REQUIRED",
+          "priority": 10
+        },
+        {
+          "authenticator": "registration-password",
+          "requirement": "REQUIRED",
+          "priority": 20
+        },
+        {
+          "authenticator": "registration-user-creation",
+          "requirement": "REQUIRED",
+          "priority": 30
+        },
+        {
+          "authenticator": "user-role-assignment",
+          "requirement": "REQUIRED",
+          "priority": 40,
+          "authenticatorConfig": "role-assignment-config"
+        }
+      ]
+    }
+  ],
+  "authenticatorConfig": [
+    {
+      "alias": "role-assignment-config",
+      "config": {
+        "role.attribute.name": "role"
+      }
+    }
+  ],
+  "registrationFlow": "registrationWithRole",
   "users": [
     {
       "username": "samagp",
@@ -25,7 +76,15 @@
           "value": "samagp",
           "temporary": false
         }
-      ]
+      ],
+      "realmRoles": [
+        "gp",
+        "client"
+      ],
+      "attributes": {
+        "phoneNumber": ["+1234567890"],
+        "address": ["Adresse par défaut"]
+      }
     },
     {
       "username": "ovd",
@@ -42,9 +101,12 @@
         }
       ],
       "realmRoles": [
-        "gp",
         "client"
-      ]
+      ],
+      "attributes": {
+        "phoneNumber": ["+1234567890"],
+        "address": ["Ouakam"]
+      }
     }
   ],
   "clients": [
@@ -73,5 +135,8 @@
       "webOrigins": ["*"],
       "directAccessGrantsEnabled": true
     }
-  ]
+  ],
+  "browserFlow": "browser",
+  "resetCredentialsFlow": "reset credentials",
+  "clientAuthenticationFlow": "clients"
 }

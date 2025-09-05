@@ -1,13 +1,19 @@
 package sn.fr.samagp.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
+import sn.fr.samagp.controller.response.ClientResponse;
 import sn.fr.samagp.exceptions.ResourceNotFoundException;
 import sn.fr.samagp.mapper.ClientMapper;
 import sn.fr.samagp.repository.ClientRepository;
 import sn.fr.samagp.repository.dto.ClientDTO;
+import sn.fr.samagp.repository.dto.FollowDTO;
 import sn.fr.samagp.repository.model.Adresse;
 import sn.fr.samagp.repository.model.Client;
 import sn.fr.samagp.repository.model.Profile;
@@ -17,12 +23,15 @@ import sn.fr.samagp.services.inter.ISecurityService;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ClientServiceImp implements IClientService {
 
+    private static final Logger log = LoggerFactory.getLogger(ClientServiceImp.class);
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
     private final ISecurityService securityService;
@@ -96,6 +105,81 @@ public class ClientServiceImp implements IClientService {
         Client client = clientRepository.findByKeycloakId(keycloakId)
                 .orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'ID Keycloak: " + keycloakId));
         return clientMapper.toDto(client);
+    }
+
+    @Override
+    public FollowDTO followClient(String followedClientId) {
+        String followerKeycloakId = securityService.getCurrentUserId();
+        Client follower = clientRepository.findByKeycloakId(followerKeycloakId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client follower not found"));
+        Client followed = clientRepository.findById(UUID.fromString(followedClientId))
+                .orElseThrow(() -> new ResourceNotFoundException("Client to follow not found"));
+
+        follower.follow(followed);
+        clientRepository.save(follower);
+
+        return new FollowDTO(
+                follower.getKeycloakId(),
+                followed.getKeycloakId(),
+                true,
+                followed.getFollowers().size()
+        );
+    }
+
+    @Override
+    public FollowDTO unfollowClient(String followedClientId) {
+        String followerKeycloakId = securityService.getCurrentUserId();
+        Client follower = clientRepository.findByKeycloakId(followerKeycloakId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client follower not found"));
+        Client followed = clientRepository.findById(UUID.fromString(followedClientId))
+                .orElseThrow(() -> new ResourceNotFoundException("Client to unfollow not found"));
+
+        follower.unfollow(followed);
+        clientRepository.save(follower);
+
+        return new FollowDTO(
+                follower.getKeycloakId(),
+                followed.getKeycloakId(),
+                false,
+                followed.getFollowers().size()
+        );
+    }
+
+    @Override
+    public boolean isFollowing(String followedClientId) {
+        String followerKeycloakId = securityService.getCurrentUserId();
+        Client follower = clientRepository.findByKeycloakId(followerKeycloakId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client follower not found"));
+        Client followed = clientRepository.findById(UUID.fromString(followedClientId))
+                .orElseThrow(() -> new ResourceNotFoundException("Client to check not found"));
+
+        return follower.getFollowing().contains(followed);
+    }
+
+    @Override
+    public int getFollowersCount(String clientId) {
+        Client client = clientRepository.findById(UUID.fromString(clientId))
+                .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        log.info("==================================================");
+        log.info(String.valueOf(client.getFollowers().size()));
+        log.info(client.getFirstName());
+        log.info("==================================================");
+        return client.getFollowers().size();
+    }
+
+    @Override
+    public List<ClientResponse> getRecentClients(int limit) {
+        // Récupère les clients triés par date de création décroissante
+        System.out.println("-----------------------------------------");
+        List<Client> recentClients = clientRepository.findAll(
+                PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "createdAt"))
+        ).getContent();
+        System.out.println(recentClients.size());
+        System.out.println("-----------------------------------------");
+
+        return recentClients.stream()
+                .map(clientMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
 

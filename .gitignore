@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+themes/mytheme
+themes/jar
+themes/event
 ### STS ###
 .apt_generated
 .classpath

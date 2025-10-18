@@ -5,7 +5,7 @@ services:
     container_name: keycloak
     environment:
       # Keycloak settings
-      KC_HTTP_CORS_ALLOWED_ORIGINS: "http://localhost:4200, http://localhost:8082, http://localhost:8090"
+      KC_HTTP_CORS_ALLOWED_ORIGINS: "*"
       KC_HTTP_CORS_ALLOWED_METHODS: "GET,POST,PUT,DELETE,OPTIONS"
       KC_HTTP_CORS_ALLOWED_HEADERS: "*"
       KC_HTTP_CORS_EXPOSED_HEADERS: "*"
@@ -16,6 +16,11 @@ services:
       KC_DB_URL_DATABASE: ${KC_DB_URL_DATABASE}
       KC_DB_USERNAME: ${KC_DB_USERNAME}
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+        # Configuration du thème
+#      KC_SPI_THEME_DEFAULT: samagp
+#      KC_SPI_THEME_STATIC_MAX_AGE: -1
+#      KC_SPI_THEME_CACHE_THEMES: false
+#      KC_SPI_THEME_CACHE_TEMPLATES: false
     #      KC_HOSTNAME: localhost
 
     ports:
@@ -25,8 +30,7 @@ services:
     volumes:
       - keycloak-data:/opt/keycloak/data
       - ./docker/config/keycloak:/opt/keycloak/data/import
-      - ./themes/event:/opt/keycloak/providers/
-      - ./themes/theme/samagp:/opt/keycloak/themes/samagp
+      - ./themes/mytheme/theme/samagp:/opt/keycloak/themes/samagp
     command: start-dev --import-realm
     networks:
       - db-network
@@ -92,13 +96,30 @@ services:
     ports:
       - "4200:80"
     environment:
-      - API_BASE_URL="http://samagp-api:8082"
+      - API_BASE_URL="http://api:8082"
       - keycloakUrl="http://keycloak:8080/auth"
     networks:
       - db-network
     depends_on:
       - api
       - keycloak
+
+#  backup:
+#    image: postgres:16.8
+#    container_name: postgres-backup
+#    environment:
+#      PGPASSWORD: ${POSTGRES_PASSWORD}
+#    volumes:
+#      - ./backups:/backups
+#    networks:
+#      - db-network
+#    entrypoint: >
+#      sh -c 'while true; do
+#        pg_dump -h postgres -U ${POSTGRES_USER} ${POSTGRES_DB} > /backups/db_$(date +%F_%H-%M-%S).sql;
+#        sleep 86400;
+#      done'
+#    depends_on:
+#      - postgres
 
 networks:
   db-network:

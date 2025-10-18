@@ -1,0 +1,104 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    command:
+      - "--api.insecure=true"                     # dashboard accessible
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "9000:80"                                  # HTTP
+      - "8080:8080"                              # Traefik dashboard
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - db-network
+    restart: always
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.6
+    #image: quay.io/keycloak/keycloak:26.0.4
+    container_name: keycloak
+    environment:
+      # Keycloak settings
+      KC_HTTP_CORS_ALLOWED_ORIGINS: "*"
+      KC_HTTP_CORS_ALLOWED_METHODS: "GET,POST,PUT,DELETE,OPTIONS"
+      KC_HTTP_CORS_ALLOWED_HEADERS: "*"
+      KC_HTTP_CORS_EXPOSED_HEADERS: "*"
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: ${KC_DB}
+      KC_DB_URL_HOST: ${KC_DB_URL_HOST}
+      KC_DB_URL_DATABASE: ${KC_DB_URL_DATABASE}
+      KC_DB_USERNAME: ${KC_DB_USERNAME}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.rule=Host(`auth.localtest.me`)"
+      - "traefik.http.routers.keycloak.entrypoints=web"
+
+  postgres:
+    container_name: postgres
+    image: postgres:16.8
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - db-volume:/data/postgres
+      - ./docker/config/init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - db-network
+    restart: unless-stopped
+
+  api:
+    container_name: samagp-api
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_APPLICATION_NAME: ${SPRING_APPLICATION_NAME}
+      REALM: ${REALM}
+      AUTH_SERVER_URL: http://auth.localtest.me
+    networks:
+      - db-network
+    depends_on:
+      - postgres
+      - keycloak
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`api.localtest.me`)"
+      - "traefik.http.routers.api.entrypoints=web"
+
+  samagp-angular:
+    build:
+      context: ../test/samagp-angular
+      dockerfile: Dockerfile
+    container_name: samagp-angular
+    environment:
+      - API_BASE_URL=http://api.localtest.me
+      - KEYCLOAK_URL=http://auth.localtest.me
+    networks:
+      - db-network
+    depends_on:
+      - api
+      - keycloak
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.angular.rule=Host(`samagp.localtest.me`)"
+      - "traefik.http.routers.angular.entrypoints=web"
+
+networks:
+  db-network:
+    driver: bridge
+
+volumes:
+  db-volume:
+  keycloak-data:

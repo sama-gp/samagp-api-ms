@@ -17,6 +17,7 @@ import sn.fr.samagp.repository.dto.UpdateAnnonceDTO;
 import sn.fr.samagp.repository.dto.ZoneGeoDTO;
 import sn.fr.samagp.services.inter.IAnnonce;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -64,8 +65,8 @@ public class AnnonceController {
             @RequestParam(required = false) String departLibelle,
             @RequestParam(required = false) Long arriveeId,
             @RequestParam(required = false) String arriveeLibelle,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") LocalDateTime dateDepart,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") LocalDateTime dateArrivee,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") LocalDate dateDepart, // CHANGEMENT: pattern au lieu de iso
+            @RequestParam(required = false) @DateTimeFormat(pattern = "ddMMyyyy") LocalDate dateArrivee, // CHANGEMENT: pattern au lieu de iso
             @RequestParam(required = false) Boolean includeParentZones,
             @RequestParam(required = false) String description) {
 
@@ -79,12 +80,16 @@ public class AnnonceController {
             arrivee = new ZoneGeoDTO(arriveeId, arriveeLibelle, null, null);
         }
 
+        // Convertir LocalDate en LocalDateTime
+        LocalDateTime dateTimeDepart = dateDepart != null ? dateDepart.atStartOfDay() : null;
+        LocalDateTime dateTimeArrivee = dateArrivee != null ? dateArrivee.atStartOfDay() : null;
+
         AnnonceSearchCriteria criteria = AnnonceSearchCriteria.builder()
                 .itineraireId(itineraireId)
                 .depart(depart)
                 .arrivee(arrivee)
-                .dateDepart(dateDepart)
-                .dateArrivee(dateArrivee)
+                .dateDepart(dateTimeDepart)
+                .dateArrivee(dateTimeArrivee)
                 .includeParentZones(includeParentZones)
                 .build();
 

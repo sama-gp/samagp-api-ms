@@ -29,7 +29,7 @@ public class UtilisateurController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Liste tous les utilisateurs",
             description = "Nécessite le rôle ADMIN")
     @ApiResponse(responseCode = "200", description = "Liste des utilisateurs récupérée avec succès")
@@ -39,14 +39,14 @@ public class UtilisateurController {
     }
 
     @GetMapping("/{userId}")
-    @PreAuthorize("hasRole('ADMIN') or #userId == authentication.principal.subject")
+    //@PreAuthorize("hasRole('ADMIN') or #userId == authentication.principal.subject")
     @Operation(summary = "Récupère un utilisateur par son ID")
     public ResponseEntity<UserRepresentation> getUserById(@PathVariable String userId) {
         return ResponseEntity.ok(keycloakService.getUserById(userId));
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Crée un nouvel utilisateur")
     public ResponseEntity<Void> createUser(@RequestBody UserRepresentation user) {
         Response response = keycloakService.createUser(user);
@@ -65,7 +65,7 @@ public class UtilisateurController {
     }
 
     @PutMapping("/{userId}")
-    @PreAuthorize("hasRole('ADMIN') or #userId == authentication.principal.subject")
+    //@PreAuthorize("hasRole('ADMIN') or #userId == authentication.principal.subject")
     @Operation(summary = "Met à jour un utilisateur")
     public ResponseEntity<Void> updateUser(
             @PathVariable String userId,
@@ -75,7 +75,7 @@ public class UtilisateurController {
     }
 
     @DeleteMapping("/{userId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Supprime un utilisateur")
     public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
         keycloakService.deleteUser(userId);
@@ -83,7 +83,7 @@ public class UtilisateurController {
     }
 
     @GetMapping("/search")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Recherche des utilisateurs")
     public ResponseEntity<List<UserRepresentation>> searchUsers(
             @RequestParam(required = false) String search) {

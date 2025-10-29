@@ -16,6 +16,8 @@ services:
       KC_DB_URL_DATABASE: ${KC_DB_URL_DATABASE}
       KC_DB_USERNAME: ${KC_DB_USERNAME}
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
         # Configuration du thème
 #      KC_SPI_THEME_DEFAULT: samagp
 #      KC_SPI_THEME_STATIC_MAX_AGE: -1
@@ -31,6 +33,7 @@ services:
       - keycloak-data:/opt/keycloak/data
       - ./docker/config/keycloak:/opt/keycloak/data/import
       - ./themes/mytheme/theme/samagp:/opt/keycloak/themes/samagp
+      - ./themes/event/samagp-spi.jar:/opt/keycloak/providers/samagp-spi.jar
     command: start-dev --import-realm
     networks:
       - db-network
@@ -59,24 +62,46 @@ services:
       - db-network
     restart: unless-stopped
 
+  # Adminer - Interface Web pour PostgreSQL
+  adminer:
+    image: adminer:4.8.1
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DEFAULT_DB: ${POSTGRES_DB:-samagp}
+      ADMINER_DESIGN: dracula  # Thème optionnel
+    depends_on:
+      - postgres
+    networks:
+      - db-network
+    restart: unless-stopped
+
   api:
     container_name: samagp-api
     build: .
     environment:
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      LOG_PATH: ${LOG_PATH}
-      SPRING_APPLICATION_NAME: ${SPRING_APPLICATION_NAME}
-      REALM: ${REALM}
-      AUTH_SERVER_URL: ${AUTH_SERVER_URL}
-      KEYCLOAK_USERNAME: ${KEYCLOAK_USERNAME}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      GRANT_TYPE: ${GRANT_TYPE}
-      KEYCLOAK_HOST: ${KEYCLOAK_HOST}
-      KEYCLOAK_PORT: ${KEYCLOAK_PORT}
-      KEYCLOAK_INTERNAL_URL: ${KEYCLOAK_INTERNAL_URL}
-      KEYCLOAK_EXTERNAL_URL: ${KEYCLOAK_EXTERNAL_URL}
+      # Active le profil Docker
+      SPRING_PROFILES_ACTIVE: docker
+
+      # Database
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/samagp
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+
+      # Keycloak - URLs Docker
+      KEYCLOAK_BASE_URL: http://keycloak:8080
+      AUTH_SERVER_URL: http://keycloak:8080/auth
+      REALM: samagp
+      KEYCLOAK_USERNAME: admin
+      KEYCLOAK_PASSWORD: admin
+      GRANT_TYPE: password
+
+      # Logging
+      LOG_PATH: /var/log/myapp
+      SPRING_APPLICATION_NAME: samagp
+
     ports:
       - "8082:8082"
     volumes:
@@ -90,7 +115,7 @@ services:
 
   samagp-angular:
     build:
-      context: ../test/samagp-angular
+      context: ../samagp
       dockerfile: Dockerfile
     container_name: samagp-angular
     ports:

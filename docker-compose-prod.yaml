@@ -1,113 +1,51 @@
-version: "3.9"
+version: '3.8'
 
 services:
-  postgres:
-    image: postgres:16.8
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - db-volume:/var/lib/postgresql/data
-      - ./docker/config/init/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - backend
-    restart: unless-stopped
-
-  postgres-backup:
-    image: prodrigestivill/postgres-backup-local
-    environment:
-      - POSTGRES_HOST=postgres
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - SCHEDULE=@daily
-      - BACKUP_KEEP_DAYS=7
-      - BACKUP_KEEP_WEEKS=4
-      - BACKUP_KEEP_MONTHS=6
-    volumes:
-      - ./backups:/backups
-    depends_on:
-      - postgres
-    networks:
-      - backend
-
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.6
-    environment:
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      KC_DB: postgres
-      KC_DB_URL_HOST: postgres
-      KC_DB_URL_DATABASE: ${POSTGRES_DB}
-      KC_DB_USERNAME: ${POSTGRES_USER}
-      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
-      KC_HOSTNAME: auth.samagp.com
-      KC_PROXY: edge
-    command: start --optimized --import-realm
-    volumes:
-      - keycloak-data:/opt/keycloak/data
-      - ./docker/config/keycloak:/opt/keycloak/data/import
-      - ./themes/theme/samagp:/opt/keycloak/themes/samagp
+    container_name: keycloak
+    ports:
+      - 8090:8080
     networks:
-      - backend
+      - db-network
+    command: start-dev --import-realm
     depends_on:
       - postgres
-    restart: unless-stopped
+
+  postgres:
+    image: postgres:16.8
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - db-network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: samagp
 
   api:
-    build: .
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      SPRING_APPLICATION_NAME: ${SPRING_APPLICATION_NAME}
-      REALM: ${REALM}
-      AUTH_SERVER_URL: https://auth.samagp.com
-    volumes:
-      - ./logs:/var/log/myapp
+    image: samagp-api:latest
+    container_name: samagp-api
+    ports:
+      - "8082:8082"
     networks:
-      - backend
+      - db-network
     depends_on:
-      - postgres
       - keycloak
-    restart: always
+      - postgres
 
   samagp-angular:
-    build:
-      context: ../test/samagp-angular
-      dockerfile: Dockerfile
-    environment:
-      - API_BASE_URL=https://api.samagp.com
-      - KEYCLOAK_URL=https://auth.samagp.com
-    networks:
-      - backend
-    depends_on:
-      - api
-      - keycloak
-    restart: always
-
-  nginx:
-    image: nginx:stable-alpine
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/certs:/etc/letsencrypt
+    image: samagp-angular:latest
+    container_name: samagp-angular
     ports:
-      - "80:80"
-      - "443:443"
+      - "4200:80"
+    networks:
+      - db-network
     depends_on:
-      - samagp-angular
       - api
       - keycloak
-    networks:
-      - backend
-    restart: always
-
-volumes:
-  db-volume:
-  keycloak-data:
 
 networks:
-  backend:
+  db-network:
     driver: bridge

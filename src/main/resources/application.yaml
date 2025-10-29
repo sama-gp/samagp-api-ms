@@ -9,17 +9,15 @@ spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}
 
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:/data/schema.sql
-      schema-locations: classpath:/data/schema.sql
-
   security:
     oauth2:
       resource server:
         jwt:
-          issuer-uri: "${KEYCLOAK_INTERNAL_URL:http://localhost:8090}/realms/samagp"
+          issuer-uri: "${KEYCLOAK_EXTERNAL_URL:http://localhost:8090}/realms/samagp"
+
+
+#         issuer-uri: "${KEYCLOAK_INTERNAL_URL:http://keycloak:8080}/realms/samagp"
+
 #        opaque-token:
 #          introspection-uri: http://localhost:8090/realms/samagp/protocol/openid-connect/token/introspect
 #          client-id: samagp-api
@@ -37,6 +35,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    defer-datasource-initialization: true
     properties:
       hibernate:
         jdbc:
@@ -44,6 +43,11 @@ spring:
         globally_quoted_identifiers: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:/data/data.sql
 
 server:
   port: 8082
@@ -81,3 +85,10 @@ keycloak:
   admin:
     username: samagp
     password: samagp
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    sn.fr.samagp.configuration.security: DEBUG

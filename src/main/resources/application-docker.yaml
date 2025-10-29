@@ -1,0 +1,12 @@
+# Database - Docker
+POSTGRES_SQL_HOST: postgres
+POSTGRES_SQL_PORT: 5432
+POSTGRES_SQL_DB: samagp
+
+# Keycloak - Docker
+KEYCLOAK_BASE_URL: http://keycloak:8080
+AUTH_SERVER_URL: http://keycloak:8080/auth
+REALM: samagp
+KEYCLOAK_USERNAME: admin
+KEYCLOAK_PASSWORD: admin
+GRANT_TYPE: password

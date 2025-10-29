@@ -26,6 +26,7 @@ public class ClientDTO {
         @NotBlank(message = "Last name is required")
         private String lastName;
 
+
         @Email(message = "The email must be valid")
         @NotBlank(message = "The email is required")
         private String email;

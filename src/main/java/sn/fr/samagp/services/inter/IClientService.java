@@ -24,5 +24,6 @@ public interface IClientService {
 
     // Nouvelle méthode
     List<ClientResponse> getRecentClients(int limit);
+    List<ClientResponse> getAllClients();
 
 }

@@ -20,4 +20,13 @@ public interface AnnonceRepository extends JpaRepository<Annonce, UUID> , JpaSpe
 
     List<Annonce> findByDateDepartBetween(LocalDateTime start, LocalDateTime end);
 
+
+    // Méthode pour trouver les annonces par keycloakId du client
+    @Query("SELECT a FROM Annonce a WHERE a.client.keycloakId = :keycloakId ORDER BY a.dateDepart DESC")
+    List<Annonce> findByClientKeycloakId(@Param("keycloakId") String keycloakId);
+
+    // Compter le nombre d'annonces par keycloakId
+    @Query("SELECT COUNT(a) FROM Annonce a WHERE a.client.keycloakId = :keycloakId")
+    Long countByClientKeycloakId(@Param("keycloakId") String keycloakId);
+
 }

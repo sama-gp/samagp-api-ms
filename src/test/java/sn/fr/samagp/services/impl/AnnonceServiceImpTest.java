@@ -235,7 +235,7 @@ class AnnonceServiceImpTest {
         List<AnnonceResponse> expectedResponses = List.of(annonceResponse);
         when(annonceRepository.findByClientId(clientId)).thenReturn(annonces);
         when(annonceMapper.toResponse(annonce)).thenReturn(annonceResponse);
-        List<AnnonceResponse> result = annonceService.getAnnonceByClient(clientId);
+        List<AnnonceResponse> result = annonceService.getAnnonceByKeycloakClient(clientId.toString());
         assertNotNull(result);
         assertEquals(expectedResponses, result);
         verify(annonceRepository).findByClientId(clientId);

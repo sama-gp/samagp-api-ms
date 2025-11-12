@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -48,8 +50,9 @@ public class Paiement {
 
     private String idTransactionFournisseur; // ID de la transaction chez le processeur de paiement
 
-    @Column(columnDefinition = "TEXT")
-    private String detailsTransaction; // Réponse brute du processeur
+    @JdbcTypeCode(SqlTypes.LONG32VARCHAR)
+    @Column(columnDefinition = "text")
+    private String detailsTransaction;  // Réponse brute du processeur
 
     @Column(nullable = false)
     private LocalDateTime datePaiement;

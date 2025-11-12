@@ -4,10 +4,31 @@ cors:
   allowed-headers: "*"
   exposed-headers: "*"
 
+# Configuration upload fichiers
+file:
+    upload-dir: ./uploads
+
 
 spring:
   profiles:
     active: ${ACTIVE_PROFILE:dev}
+
+
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+      enabled: true
+
+  web:
+    resources:
+      static-locations: "classpath:/static/,file:${file.upload-dir}"
+
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY:sk_test_51KAh93GLF9nttjSE3StevPyrDluu5O78IKnwe0L0aRXkpQJoy8RfhRnQANodjzlUykjGmFL0Zog8VSXsmjxEKvFh007EcBDDCY}
+    public-key: ${STRIPE_PUBLIC_KEY:pk_test_51KAh93GLF9nttjSEBVXlxgnb1IVhmvgbffjn7cfVlXrFXbT9mCxCnQhBdOhE8YAACq9ws8zRzP3xzphAbQy2w2if00BZTrxYBv}
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_...}
 
   security:
     oauth2:

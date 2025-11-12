@@ -18,10 +18,12 @@ public interface ClientMapper {
     @Mapping(target = "following", ignore = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "profilePictureUrl", source = "profilePictureUrl")
     Client toEntity(ClientDTO dto);
 
     @Mapping(target = "createdAt", source = "createdAt")
     @Mapping(target = "following", ignore = true)
+    @Mapping(target = "profilePictureUrl", source = "profilePictureUrl")
     ClientDTO toDto(Client client);
 
 
@@ -34,5 +36,6 @@ public interface ClientMapper {
 
     @Mapping(target = "followingIds", source = "following")
     @Mapping(target = "followersIds", source = "followers")
+    @Mapping(target = "profilePictureUrl", source = "profilePictureUrl")
     ClientResponse toResponse(Client client);
 }

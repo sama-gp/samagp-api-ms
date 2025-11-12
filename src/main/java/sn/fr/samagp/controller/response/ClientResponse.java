@@ -24,7 +24,8 @@ public record ClientResponse(
         Set<UUID> followingIds,
         Set<UUID> followersIds,
         Integer annoncesCount,
-        Integer commentairesCount
+        Integer commentairesCount,
+        String profilePictureUrl
 ) {
 
 }

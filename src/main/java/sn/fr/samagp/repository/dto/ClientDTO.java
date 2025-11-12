@@ -18,35 +18,25 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClientDTO {
-
         private UUID id;
         @NotBlank(message = "First name is required")
         private String firstName;
-
         @NotBlank(message = "Last name is required")
         private String lastName;
-
-
         @Email(message = "The email must be valid")
         @NotBlank(message = "The email is required")
         private String email;
-
         @NotBlank(message = "The password is required")
         private String password;
-
         private List<String> phone;
-
         private List<Adresse> address;
-
         @NotNull(message = "Profile is required")
         private Profile profile;
-
+        private String profilePictureUrl;
         private LocalDateTime createdAt;
-
         private List<Long> annoncesIds;
         private List<Long> favorisIds;
         private String keycloakId;
-
         // Champs pour le suivi
         private Set<UUID> followingIds;
         private Set<UUID> followerIds;

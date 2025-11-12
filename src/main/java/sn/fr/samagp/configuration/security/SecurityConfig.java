@@ -35,7 +35,8 @@ public class SecurityConfig {
                             "/annonces/**",
                             "/commentaires/**",
                             "/clients/**",
-                            "/zones-geo/**"
+                            "/zones-geo/**",
+                            "/profile/**"
                     ).permitAll()
                     .anyRequest().authenticated();
         });

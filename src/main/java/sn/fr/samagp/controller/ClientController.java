@@ -93,4 +93,9 @@ public class ClientController {
         return clientService.getRecentClients(4);
     }
 
+    @GetMapping("/all")
+    public List<ClientResponse> getAllClients() {
+        return clientService.getAllClients();
+    }
+
 }

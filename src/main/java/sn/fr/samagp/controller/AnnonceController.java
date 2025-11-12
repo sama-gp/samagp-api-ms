@@ -132,8 +132,8 @@ public class AnnonceController {
 
     // Récupérer les annonces par client
     @GetMapping("/client/{idClient}")
-    public ResponseEntity<List<AnnonceResponse>> getAnnonceByClient(@PathVariable UUID idClient) {
-        List<AnnonceResponse> annonces = annonceService.getAnnonceByClient(idClient);
+    public ResponseEntity<List<AnnonceResponse>> getAnnonceByClient(@PathVariable String idClient) {
+        List<AnnonceResponse> annonces = annonceService.getAnnonceByKeycloakClient(idClient);
         return ResponseEntity.ok(annonces);
     }
 

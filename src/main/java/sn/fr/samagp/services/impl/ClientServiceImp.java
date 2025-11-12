@@ -158,29 +158,33 @@ public class ClientServiceImp implements IClientService {
 
     @Override
     public int getFollowersCount(String clientId) {
-        Client client = clientRepository.findById(UUID.fromString(clientId))
+        Client client = clientRepository.findByKeycloakId(clientId)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
-        log.info("==================================================");
-        log.info(String.valueOf(client.getFollowers().size()));
-        log.info(client.getFirstName());
-        log.info("==================================================");
         return client.getFollowers().size();
     }
 
     @Override
     public List<ClientResponse> getRecentClients(int limit) {
         // Récupère les clients triés par date de création décroissante
-        System.out.println("-----------------------------------------");
         List<Client> recentClients = clientRepository.findAll(
                 PageRequest.of(0, limit, Sort.by(Sort.Direction.DESC, "createdAt"))
         ).getContent();
-        System.out.println(recentClients.size());
-        System.out.println("-----------------------------------------");
-
         return recentClients.stream()
                 .map(clientMapper::toResponse)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ClientResponse> getAllClients() {
+        // Récupère tous les clients triés par date de création décroissante
+        List<Client> allClients = clientRepository.findAll(
+                Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+        return allClients.stream()
+                .map(clientMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
 
 
     private Client createNewClient(ClientDTO dto, Jwt jwt) {

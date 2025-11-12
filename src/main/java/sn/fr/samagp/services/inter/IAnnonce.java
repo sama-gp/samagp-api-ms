@@ -16,7 +16,7 @@ public interface IAnnonce {
     List<AnnonceResponse> getAllAnnonces();
     AnnonceDTO updateAnnonce(UUID id, UpdateAnnonceDTO annonceDTO);
     void deleteAnnonce(UUID id);
-    List<AnnonceResponse> getAnnonceByClient(UUID idClient);
+    List<AnnonceResponse> getAnnonceByKeycloakClient(String keycloakId);
     List<AnnonceResponse> filterByCriteria(AnnonceSearchCriteria criteria);
     List<AnnonceResponse> getAnnoncesByUser(UUID userId);
     List<AnnonceResponse> getAnnoncesToday();

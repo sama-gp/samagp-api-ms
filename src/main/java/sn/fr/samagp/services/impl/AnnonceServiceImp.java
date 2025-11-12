@@ -310,17 +310,15 @@ public class AnnonceServiceImp implements IAnnonce {
     public void deleteAnnonce(UUID id) {
         Optional<Annonce> annonceToDelete = annonceRepository.findById(id);
         if (annonceToDelete.isPresent()) {
-            log.info("************ Suppression de l'annonce : " + annonceToDelete.get());
             annonceRepository.deleteById(id);
         } else {
-            log.info("************** Annonce avec l'ID " + id + " introuvable !");
             throw new RuntimeException("Annonce non trouvée!");
         }
     }
 
     @Override
-    public List<AnnonceResponse> getAnnonceByClient(UUID idClient) {
-        return annonceRepository.findByClientId(idClient).stream()
+    public List<AnnonceResponse> getAnnonceByKeycloakClient(String idClient) {
+        return annonceRepository.findByClientKeycloakId(idClient).stream()
                 .map(annonceMapper::toResponse)
                 .collect(Collectors.toList());
     }

@@ -23,4 +23,5 @@ public interface AbonnementClientRepository extends JpaRepository<AbonnementClie
     List<AbonnementClient> findByStatutAndDateFinBefore(StatutAbonnement statut, LocalDateTime date);
 
     Long countByStatut(StatutAbonnement statut);
+    List<AbonnementClient> findByClientId(UUID clientId);
 }

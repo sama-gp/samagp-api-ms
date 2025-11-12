@@ -19,6 +19,9 @@ public interface PaiementRepository extends JpaRepository<Paiement, UUID> {
     @Query("SELECT SUM(p.montant) FROM Paiement p WHERE p.datePaiement >= :debutMois AND p.statut = 'PAYE'")
     BigDecimal calculateRevenueMensuel(@Param("debutMois") LocalDateTime debutMois);
 
+    List<Paiement> findByAbonnementClient_Client_Id(UUID clientId);
+
+
     default BigDecimal calculateRevenueMensuel() {
         LocalDateTime debutMois = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
         return calculateRevenueMensuel(debutMois);

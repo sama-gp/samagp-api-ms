@@ -1,9 +1,9 @@
 package sn.fr.samagp.controller.response;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import sn.fr.samagp.repository.model.Adresse;
 import sn.fr.samagp.repository.model.Profile;
+import sn.fr.samagp.repository.model.TypePieces;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +25,14 @@ public record ClientResponse(
         Set<UUID> followersIds,
         Integer annoncesCount,
         Integer commentairesCount,
-        String profilePictureUrl
+        String profilePictureUrl,
+        // Nouveaux champs
+        TypePieces typePieces,
+        String piecesRecto,
+        String piecesVerso,
+        String ninea,
+        boolean isValid
+
 ) {
 
 }

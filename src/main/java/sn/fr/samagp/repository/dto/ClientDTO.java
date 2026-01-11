@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import sn.fr.samagp.repository.model.Adresse;
 import sn.fr.samagp.repository.model.Profile;
+import sn.fr.samagp.repository.model.TypePieces;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,11 +38,19 @@ public class ClientDTO {
         private List<Long> annoncesIds;
         private List<Long> favorisIds;
         private String keycloakId;
+
+        // Nouveaux champs pour les pièces d'identité et NINEA
+        private TypePieces typePieces;
+        private String piecesRecto;
+        private String piecesVerso;
+        private String ninea;
+        private boolean isValid;
+
+
         // Champs pour le suivi
         private Set<UUID> followingIds;
         private Set<UUID> followerIds;
         private int followingCount;
         private int followersCount;
-        private boolean following; ;
+        private boolean following;
 }
-

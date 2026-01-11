@@ -8,11 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sn.fr.samagp.controller.response.ClientResponse;
 import sn.fr.samagp.repository.dto.ClientDTO;
+import sn.fr.samagp.repository.dto.ClientDocumentsDTO;
 import sn.fr.samagp.repository.dto.FollowDTO;
 import sn.fr.samagp.repository.model.Adresse;
 import sn.fr.samagp.repository.model.Client;
+import sn.fr.samagp.repository.model.TypePieces;
 import sn.fr.samagp.services.inter.IClientService;
 
 import java.util.List;
@@ -26,6 +29,52 @@ public class ClientController {
 
     private static final Logger log = LoggerFactory.getLogger(AnnonceController.class);
     private final IClientService clientService;
+
+
+    @PutMapping(value = "/{keycloakId}/documents", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ClientDTO> updateClientDocuments(
+            @PathVariable String keycloakId,
+            @RequestPart("typePieces") String typePieces,
+            @RequestPart("ninea") String ninea,
+            @RequestPart(value = "rectoFile", required = false) MultipartFile rectoFile,
+            @RequestPart(value = "versoFile", required = false) MultipartFile versoFile) {
+
+        // Convertir le typePieces string en enum
+        TypePieces typePiecesEnum = null;
+        if (typePieces != null && !typePieces.isEmpty()) {
+            try {
+                typePiecesEnum = TypePieces.valueOf(typePieces);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Type de pièce invalide: " + typePieces);
+            }
+        }
+        ClientDocumentsDTO documentsDTO = new ClientDocumentsDTO();
+        documentsDTO.setTypePieces(typePiecesEnum);
+        documentsDTO.setNinea(ninea);
+        documentsDTO.setRectoFile(rectoFile);
+        documentsDTO.setVersoFile(versoFile);
+
+        ClientDTO updatedClient = clientService.updateClientDocuments(keycloakId, documentsDTO);
+        return ResponseEntity.ok(updatedClient);
+    }
+
+    @PostMapping("/{keycloakId}/validate")
+    public ResponseEntity<ClientDTO> validateClient(@PathVariable String keycloakId) {
+        ClientDTO validatedClient = clientService.validateClient(keycloakId);
+        return ResponseEntity.ok(validatedClient);
+    }
+
+    @PostMapping("/{keycloakId}/reject")
+    public ResponseEntity<ClientDTO> rejectClient(@PathVariable String keycloakId) {
+        ClientDTO rejectedClient = clientService.rejectClient(keycloakId);
+        return ResponseEntity.ok(rejectedClient);
+    }
+
+    @GetMapping("/pending-validation")
+    public ResponseEntity<List<ClientResponse>> getPendingValidationClients() {
+        List<ClientResponse> pendingClients = clientService.getPendingValidationClients();
+        return ResponseEntity.ok(pendingClients);
+    }
 
     // Créer un nouveau client
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

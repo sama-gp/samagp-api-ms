@@ -13,10 +13,12 @@ import sn.fr.samagp.exceptions.ResourceNotFoundException;
 import sn.fr.samagp.mapper.ClientMapper;
 import sn.fr.samagp.repository.ClientRepository;
 import sn.fr.samagp.repository.dto.ClientDTO;
+import sn.fr.samagp.repository.dto.ClientDocumentsDTO;
 import sn.fr.samagp.repository.dto.FollowDTO;
 import sn.fr.samagp.repository.model.Adresse;
 import sn.fr.samagp.repository.model.Client;
 import sn.fr.samagp.repository.model.Profile;
+import sn.fr.samagp.repository.model.TypePieces;
 import sn.fr.samagp.services.inter.IClientService;
 import sn.fr.samagp.services.inter.ISecurityService;
 
@@ -35,6 +37,8 @@ public class ClientServiceImp implements IClientService {
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
     private final ISecurityService securityService;
+    private final DocumentStorageService documentStorageService;
+
 
     @Override
     public Client syncClient(ClientDTO dto) {
@@ -57,22 +61,50 @@ public class ClientServiceImp implements IClientService {
     public ClientDTO updateClient(String keycloakId, ClientDTO dto) {
         return clientRepository.findByKeycloakId(keycloakId)
                 .map(existing -> {
+                    // Sauvegarder l'ancien profil pour vérifier les changements
+                    Profile oldProfile = existing.getProfile();
+
                     // Mise à jour des champs de base
                     if (dto.getFirstName() != null) existing.setFirstName(dto.getFirstName());
                     if (dto.getLastName() != null) existing.setLastName(dto.getLastName());
                     if (dto.getEmail() != null) existing.setEmail(dto.getEmail());
                     if (dto.getProfile() != null) existing.setProfile(dto.getProfile());
 
-                    // Mise à jour des téléphones (remplacement complet)
+                    // Mise à jour des documents d'identité - SEULEMENT si GP
+                    if (dto.getProfile() == Profile.GP) {
+                        if (dto.getTypePieces() != null) existing.setTypePieces(dto.getTypePieces());
+                        if (dto.getPiecesRecto() != null) existing.setPiecesRecto(dto.getPiecesRecto());
+                        if (dto.getPiecesVerso() != null) existing.setPiecesVerso(dto.getPiecesVerso());
+                        if (dto.getNinea() != null) existing.setNinea(dto.getNinea());
+
+                        // Si changement de profil vers GP ou modification des documents, marquer comme en attente
+                        if (oldProfile != Profile.GP || dto.getTypePieces() != null ||
+                                dto.getPiecesRecto() != null || dto.getPiecesVerso() != null ||
+                                dto.getNinea() != null) {
+                            existing.markAsPendingValidation();
+                        }
+                    } else {
+                        // Si passage de GP à CLIENT, on peut conserver les documents mais le compte n'est plus validé
+                        if (oldProfile == Profile.GP) {
+                            existing.markAsPendingValidation();
+                        }
+                    }
+
+                    // Mise à jour des téléphones
                     if (dto.getPhone() != null) {
                         existing.getPhone().clear();
                         existing.getPhone().addAll(dto.getPhone());
                     }
 
-                    // Mise à jour des adresses (remplacement complet)
+                    // Mise à jour des adresses
                     if (dto.getAddress() != null) {
                         existing.getAddress().clear();
                         existing.getAddress().addAll(dto.getAddress());
+                    }
+
+                    // Validation des données pour les GP
+                    if (existing.getProfile() == Profile.GP) {
+                        validateGPRequirements(existing);
                     }
 
                     Client updatedClient = clientRepository.save(existing);
@@ -80,6 +112,28 @@ public class ClientServiceImp implements IClientService {
 
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'ID: " + keycloakId));
+    }
+
+    // Méthode de validation pour les GP
+    private void validateGPRequirements(Client client) {
+        if (client.getProfile() != Profile.GP) return;
+
+        if (client.getTypePieces() == null) {
+            throw new IllegalArgumentException("Le type de pièce d'identité est obligatoire pour les professionnels");
+        }
+
+        if (client.getPiecesRecto() == null || client.getPiecesRecto().isEmpty()) {
+            throw new IllegalArgumentException("Le recto de la pièce d'identité est obligatoire pour les professionnels");
+        }
+
+        if (client.getTypePieces() == TypePieces.CARTE_NATIONALE &&
+                (client.getPiecesVerso() == null || client.getPiecesVerso().isEmpty())) {
+            throw new IllegalArgumentException("Le verso de la carte nationale est obligatoire");
+        }
+
+        if (client.getNinea() == null || client.getNinea().isEmpty()) {
+            throw new IllegalArgumentException("Le NINEA est obligatoire pour les professionnels");
+        }
     }
 
     @Override
@@ -220,4 +274,105 @@ public class ClientServiceImp implements IClientService {
         String[] parts = fullName != null ? fullName.split(" ") : new String[0];
         return parts.length > 1 ? parts[1] : "";
     }
+
+    @Override
+    public ClientDTO validateClient(String keycloakId) {
+        Client client = clientRepository.findByKeycloakId(keycloakId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'ID: " + keycloakId));
+
+        client.validate();
+        Client validatedClient = clientRepository.save(client);
+        return clientMapper.toDto(validatedClient);
+    }
+
+    @Override
+    public ClientDTO rejectClient(String keycloakId) {
+        Client client = clientRepository.findByKeycloakId(keycloakId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'ID: " + keycloakId));
+
+        client.rejectValidation();
+        Client rejectedClient = clientRepository.save(client);
+        return clientMapper.toDto(rejectedClient);
+    }
+
+    @Override
+    public List<ClientResponse> getPendingValidationClients() {
+        List<Client> pendingClients = clientRepository.findByIsValidFalseAndHasAllDocuments();
+        return pendingClients.stream()
+                .map(clientMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean canCreateAnnonce(String keycloakId) {
+        Client client = clientRepository.findByKeycloakId(keycloakId)
+                .orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'ID: " + keycloakId));
+
+        return client.canCreateAnnonces();
+    }
+
+    @Override
+    public ClientDTO updateClientDocuments(String keycloakId, ClientDocumentsDTO documentsDTO) {
+
+        log.info("Début updateClientDocuments pour client: {}", keycloakId);
+
+
+        return clientRepository.findByKeycloakId(keycloakId)
+                .map(existing -> {
+                    // Mise à jour des métadonnées
+                    log.info("Client trouvé: {}", existing.getEmail());
+
+                    if (documentsDTO.getTypePieces() != null) {
+                        log.info("Mise à jour typePieces: {}", documentsDTO.getTypePieces());
+                        existing.setTypePieces(documentsDTO.getTypePieces());
+                    }
+                    if (documentsDTO.getNinea() != null) {
+                        log.info("Mise à jour ninea: {}", documentsDTO.getNinea());
+                        existing.setNinea(documentsDTO.getNinea());
+                    }
+
+                    // CORRECTION : Upload et mise à jour des fichiers RECT0
+                    if (documentsDTO.getRectoFile() != null && !documentsDTO.getRectoFile().isEmpty()) {
+                        log.info("Upload rectoFile: {} - taille: {}",
+                                documentsDTO.getRectoFile().getOriginalFilename(),
+                                documentsDTO.getRectoFile().getSize());
+                        // Supprimer l'ancien fichier recto s'il existe
+                        if (existing.getPiecesRecto() != null) {
+                            documentStorageService.deleteDocument(existing.getPiecesRecto());
+                        }
+                        // Upload du nouveau fichier recto
+                        String rectoPath = documentStorageService.storeDocument(
+                                documentsDTO.getRectoFile(), "pieces", keycloakId);
+                        existing.setPiecesRecto(rectoPath);
+                    }
+
+                    // CORRECTION : Upload et mise à jour des fichiers VERSO
+                    if (documentsDTO.getVersoFile() != null && !documentsDTO.getVersoFile().isEmpty()) {
+                        // Supprimer l'ancien fichier verso s'il existe
+                        if (existing.getPiecesVerso() != null) {
+                            documentStorageService.deleteDocument(existing.getPiecesVerso());
+                        }
+                        // Upload du nouveau fichier verso
+                        String versoPath = documentStorageService.storeDocument(
+                                documentsDTO.getVersoFile(), "pieces", keycloakId);
+                        existing.setPiecesVerso(versoPath);
+                    }
+
+                    // Si GP et modification des documents, marquer comme en attente
+                    if (existing.getProfile() == Profile.GP) {
+                        existing.markAsPendingValidation();
+
+                        // Validation des documents pour les GP
+                        validateGPRequirements(existing);
+                    }
+
+                    Client updatedClient = clientRepository.save(existing);
+                    log.info("Client sauvegardé avec succès");
+                    return clientMapper.toDto(updatedClient);
+
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Client non trouvé avec l'ID: " + keycloakId));
+    }
+
+
 }

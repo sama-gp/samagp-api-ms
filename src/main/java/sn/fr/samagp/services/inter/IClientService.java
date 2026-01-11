@@ -2,6 +2,7 @@ package sn.fr.samagp.services.inter;
 
 import sn.fr.samagp.controller.response.ClientResponse;
 import sn.fr.samagp.repository.dto.ClientDTO;
+import sn.fr.samagp.repository.dto.ClientDocumentsDTO;
 import sn.fr.samagp.repository.dto.FollowDTO;
 import sn.fr.samagp.repository.model.Adresse;
 import sn.fr.samagp.repository.model.Client;
@@ -25,5 +26,14 @@ public interface IClientService {
     // Nouvelle méthode
     List<ClientResponse> getRecentClients(int limit);
     List<ClientResponse> getAllClients();
+
+
+    ClientDTO validateClient(String keycloakId);
+    ClientDTO rejectClient(String keycloakId);
+    List<ClientResponse> getPendingValidationClients();
+    boolean canCreateAnnonce(String keycloakId);
+    ClientDTO updateClientDocuments(String keycloakId, ClientDocumentsDTO documentsDTO);
+
+
 
 }

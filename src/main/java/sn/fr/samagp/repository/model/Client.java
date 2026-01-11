@@ -45,6 +45,24 @@ public class Client {
     @JsonIgnore
     private List<Commentaire> commentaires = new ArrayList<>();
 
+    // Nouveaux champs pour les pièces d'identité
+    @Enumerated(EnumType.STRING)
+    @Column(name = "identity_document_type")
+    private TypePieces typePieces;
+
+    @Column(name = "pieces_recto")
+    private String piecesRecto;
+
+    @Column(name = "pieces_verso")
+    private String piecesVerso;
+
+    @Column(name = "ninea", unique = true)
+    private String ninea;
+
+    // Champ pour la validation par le super utilisateur
+    @Column(name = "is_valid")
+    private boolean isValid = false;
+
     @Column(name = "keycloak_id", unique = true, nullable = false)
     @NotBlank
     @EqualsAndHashCode.Include
@@ -87,6 +105,39 @@ public class Client {
 //    @JsonIgnore
 //    private List<Itineraire> favoris = new ArrayList<>();
 
+
+    // Méthode pour vérifier si tous les documents sont fournis
+    public boolean hasAllDocuments() {
+        if (typePieces == null) return false;
+        if (piecesRecto == null || piecesRecto.isEmpty()) return false;
+        if (typePieces == TypePieces.CARTE_NATIONALE && (piecesVerso == null || piecesVerso.isEmpty())) {
+            return false;
+        }
+        if (profile == Profile.GP && (ninea == null || ninea.isEmpty())) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean canCreateAnnonces() {
+        return Boolean.TRUE.equals(this.isValid);
+    }
+
+    public void markAsPendingValidation() {
+        this.isValid = false;
+    }
+
+    public void validate() {
+        if (this.hasAllDocuments()) {
+            this.isValid = true;
+        } else {
+            throw new IllegalStateException("Le client n'a pas fourni tous les documents requis");
+        }
+    }
+
+    public void rejectValidation() {
+        this.isValid = false;
+    }
 
 
 }

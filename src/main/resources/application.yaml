@@ -7,6 +7,8 @@ cors:
 # Configuration upload fichiers
 file:
     upload-dir: ./uploads
+    max-file-size: 10MB
+    max-request-size: 10MB
 
 
 spring:
@@ -17,8 +19,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 5MB
-      max-request-size: 5MB
+      max-file-size: 10MB
+      max-request-size: 10MB
       enabled: true
 
   web:

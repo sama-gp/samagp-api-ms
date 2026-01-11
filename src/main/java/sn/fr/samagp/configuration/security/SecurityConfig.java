@@ -36,6 +36,7 @@ public class SecurityConfig {
                             "/commentaires/**",
                             "/clients/**",
                             "/zones-geo/**",
+                            "/api/sync/*",
                             "/profile/**"
                     ).permitAll()
                     .anyRequest().authenticated();

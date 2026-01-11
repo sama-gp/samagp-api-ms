@@ -81,7 +81,7 @@
 #CMD ["java", "-jar", "samagp-api-ms.jar"]
 
 # Stage 1: Build the JAR file
-FROM maven:3.8.5-openjdk-17-slim AS build
+FROM maven:3.9-eclipse-temurin-17-alpine AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src

@@ -33,7 +33,7 @@ services:
       - keycloak-data:/opt/keycloak/data
       - ./docker/config/keycloak:/opt/keycloak/data/import
       - ./themes/mytheme/theme/samagp:/opt/keycloak/themes/samagp
-      - ./themes/event/samagp-spi.jar:/opt/keycloak/providers/samagp-spi.jar
+#      - ./themes/event/samagp-spi.jar:/opt/keycloak/providers/samagp-spi.jar
     command: start-dev --import-realm
     networks:
       - db-network

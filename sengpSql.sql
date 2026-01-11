@@ -14,19 +14,19 @@ CREATE TABLE "public"."abonnements_client" (
     CONSTRAINT "abonnements_client_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
-INSERT INTO "abonnements_client" ("id", "annonces_utilisees", "created_at", "date_debut", "date_fin", "renouvellement_auto", "statut", "client_id", "plan_id") VALUES
-('0f2189de-6637-44a9-b4e8-750785316aad',	0,	'2025-11-02 13:28:28.633631',	'2025-11-02 13:28:28.61609',	'2025-12-02 13:28:28.61676',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('2f620c02-db6a-4f05-a876-342f2e27e373',	0,	'2025-11-02 13:42:35.143961',	'2025-11-02 13:42:35.126217',	'2025-12-02 13:42:35.126973',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('09480f20-6c4f-4402-8923-6456e0af8231',	0,	'2025-11-02 13:43:55.07913',	'2025-11-02 13:43:55.077964',	'2025-12-02 13:43:55.077979',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('49ee9263-4ebf-4bbd-9507-635a454ff4f6',	0,	'2025-11-02 13:46:32.197653',	'2025-11-02 13:46:32.16561',	'2025-12-02 13:46:32.166203',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('aad3aec1-7db7-4a8d-9011-cc20231376dc',	0,	'2025-11-02 20:28:43.626789',	'2025-11-02 20:28:43.609221',	'2025-12-02 20:28:43.610127',	't',	'EN_ATTENTE_PAIEMENT',	'2ddbb31e-c2a2-4e98-b2c7-b2961c099277',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('79501906-aa9c-4f21-9fec-cd9bb6c25587',	0,	'2025-11-02 20:50:38.962647',	'2025-11-02 20:50:38.888096',	'2025-12-02 20:50:38.888123',	't',	'EN_ATTENTE_PAIEMENT',	'618eba90-6d17-48e3-a3cf-93a6037e2d85',	'7af454e7-d04a-4e69-8cde-ed9541b3b3eb'),
-('b5f80f81-3d65-4238-8d6e-6df03ab4bbaa',	0,	'2025-11-02 20:52:01.924464',	'2025-11-02 20:52:01.909883',	'2025-12-02 20:52:01.910439',	't',	'EN_ATTENTE_PAIEMENT',	'618eba90-6d17-48e3-a3cf-93a6037e2d85',	'7af454e7-d04a-4e69-8cde-ed9541b3b3eb'),
-('fac62e59-9f7f-4949-8483-b311f02ffde6',	0,	'2025-11-02 20:56:34.215496',	'2025-11-02 20:56:34.192055',	'2025-12-02 20:56:34.192849',	't',	'ACTIF',	'618eba90-6d17-48e3-a3cf-93a6037e2d85',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('d897b42e-6121-475d-892f-9134ce6c879b',	0,	'2025-11-02 21:01:37.454084',	'2025-11-02 21:01:36.201978',	'2025-12-02 21:01:36.204424',	't',	'ACTIF',	'435cadcf-1a2d-41bd-a691-0d489155c5e6',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('8b8dd6fd-0e44-4f50-b5f5-ad1fb349c0c3',	0,	'2025-11-03 22:17:09.834888',	'2025-11-03 22:17:09.819308',	'2025-12-03 22:17:09.819987',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('0e81adf2-0f2e-483c-8639-2752fee8172c',	0,	'2025-11-03 22:25:37.655201',	'2025-11-03 22:25:37.628153',	'2025-12-03 22:25:37.628166',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
-('417530d7-0bd9-4e56-b95e-b0f850732aa1',	0,	'2025-11-03 22:27:42.332644',	'2025-11-03 22:27:42.331805',	'2025-12-03 22:27:42.331812',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be');
+-- INSERT INTO "abonnements_client" ("id", "annonces_utilisees", "created_at", "date_debut", "date_fin", "renouvellement_auto", "statut", "client_id", "plan_id") VALUES
+-- ('0f2189de-6637-44a9-b4e8-750785316aad',	0,	'2025-11-02 13:28:28.633631',	'2025-11-02 13:28:28.61609',	'2025-12-02 13:28:28.61676',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('2f620c02-db6a-4f05-a876-342f2e27e373',	0,	'2025-11-02 13:42:35.143961',	'2025-11-02 13:42:35.126217',	'2025-12-02 13:42:35.126973',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('09480f20-6c4f-4402-8923-6456e0af8231',	0,	'2025-11-02 13:43:55.07913',	'2025-11-02 13:43:55.077964',	'2025-12-02 13:43:55.077979',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('49ee9263-4ebf-4bbd-9507-635a454ff4f6',	0,	'2025-11-02 13:46:32.197653',	'2025-11-02 13:46:32.16561',	'2025-12-02 13:46:32.166203',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('aad3aec1-7db7-4a8d-9011-cc20231376dc',	0,	'2025-11-02 20:28:43.626789',	'2025-11-02 20:28:43.609221',	'2025-12-02 20:28:43.610127',	't',	'EN_ATTENTE_PAIEMENT',	'2ddbb31e-c2a2-4e98-b2c7-b2961c099277',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('79501906-aa9c-4f21-9fec-cd9bb6c25587',	0,	'2025-11-02 20:50:38.962647',	'2025-11-02 20:50:38.888096',	'2025-12-02 20:50:38.888123',	't',	'EN_ATTENTE_PAIEMENT',	'618eba90-6d17-48e3-a3cf-93a6037e2d85',	'7af454e7-d04a-4e69-8cde-ed9541b3b3eb'),
+-- ('b5f80f81-3d65-4238-8d6e-6df03ab4bbaa',	0,	'2025-11-02 20:52:01.924464',	'2025-11-02 20:52:01.909883',	'2025-12-02 20:52:01.910439',	't',	'EN_ATTENTE_PAIEMENT',	'618eba90-6d17-48e3-a3cf-93a6037e2d85',	'7af454e7-d04a-4e69-8cde-ed9541b3b3eb'),
+-- ('fac62e59-9f7f-4949-8483-b311f02ffde6',	0,	'2025-11-02 20:56:34.215496',	'2025-11-02 20:56:34.192055',	'2025-12-02 20:56:34.192849',	't',	'ACTIF',	'618eba90-6d17-48e3-a3cf-93a6037e2d85',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('d897b42e-6121-475d-892f-9134ce6c879b',	0,	'2025-11-02 21:01:37.454084',	'2025-11-02 21:01:36.201978',	'2025-12-02 21:01:36.204424',	't',	'ACTIF',	'435cadcf-1a2d-41bd-a691-0d489155c5e6',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('8b8dd6fd-0e44-4f50-b5f5-ad1fb349c0c3',	0,	'2025-11-03 22:17:09.834888',	'2025-11-03 22:17:09.819308',	'2025-12-03 22:17:09.819987',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('0e81adf2-0f2e-483c-8639-2752fee8172c',	0,	'2025-11-03 22:25:37.655201',	'2025-11-03 22:25:37.628153',	'2025-12-03 22:25:37.628166',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be'),
+-- ('417530d7-0bd9-4e56-b95e-b0f850732aa1',	0,	'2025-11-03 22:27:42.332644',	'2025-11-03 22:27:42.331805',	'2025-12-03 22:27:42.331812',	't',	'EN_ATTENTE_PAIEMENT',	'd7ccedd3-592a-4159-9bcd-e6ea09307ae2',	'6be6331a-0cf4-4e4b-a20e-665cbefb09be');
 
 DROP TABLE IF EXISTS "annonces";
 CREATE TABLE "public"."annonces" (
@@ -216,229 +216,229 @@ CREATE TABLE "public"."paiements" (
     CONSTRAINT "paiements_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
 
-INSERT INTO "paiements" ("id", "created_at", "date_confirmation", "date_paiement", "details_transaction", "devise", "id_transaction_fournisseur", "methode", "montant", "reference", "statut", "abonnement_client_id") VALUES
-('2297ea09-5903-4c3e-b4c0-24e7053e89c0',	'2025-11-02 20:56:36.665538',	'2025-11-02 20:56:36.646526',	'2025-11-02 20:56:36.646517',	'Paiement Stripe réussi - {
-  "amount": 500000,
-  "amount_capturable": 0,
-  "amount_details": {
-    "tip": {
-      "amount": null
-    }
-  },
-  "amount_received": 500000,
-  "application": null,
-  "application_fee_amount": null,
-  "automatic_payment_methods": {
-    "allow_redirects": "always",
-    "enabled": true
-  },
-  "canceled_at": null,
-  "cancellation_reason": null,
-  "capture_method": "automatic",
-  "client_secret": "pi_3SP7OBGLF9nttjSE1Nx7tkNp_secret_uYs7PToGwS70Q8wvRntL83SI8",
-  "confirmation_method": "automatic",
-  "created": 1762113395,
-  "currency": "xof",
-  "customer": null,
-  "description": null,
-  "id": "pi_3SP7OBGLF9nttjSE1Nx7tkNp",
-  "invoice": null,
-  "last_payment_error": null,
-  "latest_charge": "ch_3SP7OBGLF9nttjSE1AeOe7B0",
-  "livemode": false,
-  "metadata": {
-    "abonnement_client_id": "fac62e59-9f7f-4949-8483-b311f02ffde6",
-    "client_id": "618eba90-6d17-48e3-a3cf-93a6037e2d85",
-    "plan_code": "BASIC_MENSUEL"
-  },
-  "next_action": null,
-  "object": "payment_intent",
-  "on_behalf_of": null,
-  "payment_method": "pm_1SP7OBGLF9nttjSE3fk4wjyG",
-  "payment_method_configuration_details": {
-    "id": "pmc_1RdnsWGLF9nttjSEQy4AYpfB",
-    "parent": null
-  },
-  "payment_method_options": {
-    "acss_debit": null,
-    "affirm": null,
-    "afterpay_clearpay": null,
-    "alipay": null,
-    "au_becs_debit": null,
-    "bacs_debit": null,
-    "bancontact": null,
-    "blik": null,
-    "boleto": null,
-    "card": {
-      "capture_method": null,
-      "installments": null,
-      "mandate_options": null,
-      "network": null,
-      "request_extended_authorization": null,
-      "request_incremental_authorization": null,
-      "request_multicapture": null,
-      "request_overcapture": null,
-      "request_three_d_secure": "automatic",
-      "setup_future_usage": null,
-      "statement_descriptor_suffix_kana": null,
-      "statement_descriptor_suffix_kanji": null
-    },
-    "card_present": null,
-    "cashapp": null,
-    "customer_balance": null,
-    "eps": null,
-    "fpx": null,
-    "giropay": null,
-    "grabpay": null,
-    "ideal": null,
-    "interac_present": null,
-    "klarna": null,
-    "konbini": null,
-    "link": {
-      "capture_method": null,
-      "persistent_token": null,
-      "setup_future_usage": null
-    },
-    "oxxo": null,
-    "p24": null,
-    "paynow": null,
-    "paypal": null,
-    "pix": null,
-    "promptpay": null,
-    "revolut_pay": null,
-    "sepa_debit": null,
-    "sofort": null,
-    "us_bank_account": null,
-    "wechat_pay": null,
-    "zip": null
-  },
-  "payment_method_types": [
-    "card",
-    "link"
-  ],
-  "processing": null,
-  "receipt_email": null,
-  "review": null,
-  "setup_future_usage": null,
-  "shipping": null,
-  "source": null,
-  "statement_descriptor": null,
-  "statement_descriptor_suffix": null,
-  "status": "succeeded",
-  "transfer_data": null,
-  "transfer_group": null
-}',	'XOF',	'pi_3SP7OBGLF9nttjSE1Nx7tkNp',	'CARTE_BANCAIRE',	5000.00,	'pi_3SP7OBGLF9nttjSE1Nx7tkNp',	'PAYE',	'fac62e59-9f7f-4949-8483-b311f02ffde6'),
-('e3075256-a2f6-4ea9-97db-bcc3f04c0853',	'2025-11-02 21:01:40.045493',	'2025-11-02 21:01:40.037949',	'2025-11-02 21:01:40.037941',	'Paiement Stripe réussi - {
-  "amount": 500000,
-  "amount_capturable": 0,
-  "amount_details": {
-    "tip": {
-      "amount": null
-    }
-  },
-  "amount_received": 500000,
-  "application": null,
-  "application_fee_amount": null,
-  "automatic_payment_methods": {
-    "allow_redirects": "always",
-    "enabled": true
-  },
-  "canceled_at": null,
-  "cancellation_reason": null,
-  "capture_method": "automatic",
-  "client_secret": "pi_3SP7T4GLF9nttjSE0wnh2F0Y_secret_NYyLw6jznOHtmgC0GQNrVZ8Zr",
-  "confirmation_method": "automatic",
-  "created": 1762113698,
-  "currency": "xof",
-  "customer": null,
-  "description": null,
-  "id": "pi_3SP7T4GLF9nttjSE0wnh2F0Y",
-  "invoice": null,
-  "last_payment_error": null,
-  "latest_charge": "ch_3SP7T4GLF9nttjSE0rzKWxTi",
-  "livemode": false,
-  "metadata": {
-    "abonnement_client_id": "d897b42e-6121-475d-892f-9134ce6c879b",
-    "client_id": "435cadcf-1a2d-41bd-a691-0d489155c5e6",
-    "plan_code": "BASIC_MENSUEL"
-  },
-  "next_action": null,
-  "object": "payment_intent",
-  "on_behalf_of": null,
-  "payment_method": "pm_1SP7T4GLF9nttjSEN3L7Akd0",
-  "payment_method_configuration_details": {
-    "id": "pmc_1RdnsWGLF9nttjSEQy4AYpfB",
-    "parent": null
-  },
-  "payment_method_options": {
-    "acss_debit": null,
-    "affirm": null,
-    "afterpay_clearpay": null,
-    "alipay": null,
-    "au_becs_debit": null,
-    "bacs_debit": null,
-    "bancontact": null,
-    "blik": null,
-    "boleto": null,
-    "card": {
-      "capture_method": null,
-      "installments": null,
-      "mandate_options": null,
-      "network": null,
-      "request_extended_authorization": null,
-      "request_incremental_authorization": null,
-      "request_multicapture": null,
-      "request_overcapture": null,
-      "request_three_d_secure": "automatic",
-      "setup_future_usage": null,
-      "statement_descriptor_suffix_kana": null,
-      "statement_descriptor_suffix_kanji": null
-    },
-    "card_present": null,
-    "cashapp": null,
-    "customer_balance": null,
-    "eps": null,
-    "fpx": null,
-    "giropay": null,
-    "grabpay": null,
-    "ideal": null,
-    "interac_present": null,
-    "klarna": null,
-    "konbini": null,
-    "link": {
-      "capture_method": null,
-      "persistent_token": null,
-      "setup_future_usage": null
-    },
-    "oxxo": null,
-    "p24": null,
-    "paynow": null,
-    "paypal": null,
-    "pix": null,
-    "promptpay": null,
-    "revolut_pay": null,
-    "sepa_debit": null,
-    "sofort": null,
-    "us_bank_account": null,
-    "wechat_pay": null,
-    "zip": null
-  },
-  "payment_method_types": [
-    "card",
-    "link"
-  ],
-  "processing": null,
-  "receipt_email": null,
-  "review": null,
-  "setup_future_usage": null,
-  "shipping": null,
-  "source": null,
-  "statement_descriptor": null,
-  "statement_descriptor_suffix": null,
-  "status": "succeeded",
-  "transfer_data": null,
-  "transfer_group": null
-}',	'XOF',	'pi_3SP7T4GLF9nttjSE0wnh2F0Y',	'CARTE_BANCAIRE',	5000.00,	'pi_3SP7T4GLF9nttjSE0wnh2F0Y',	'PAYE',	'd897b42e-6121-475d-892f-9134ce6c879b');
+-- INSERT INTO "paiements" ("id", "created_at", "date_confirmation", "date_paiement", "details_transaction", "devise", "id_transaction_fournisseur", "methode", "montant", "reference", "statut", "abonnement_client_id") VALUES
+-- ('2297ea09-5903-4c3e-b4c0-24e7053e89c0',	'2025-11-02 20:56:36.665538',	'2025-11-02 20:56:36.646526',	'2025-11-02 20:56:36.646517',	'Paiement Stripe réussi - {
+--   "amount": 500000,
+--   "amount_capturable": 0,
+--   "amount_details": {
+--     "tip": {
+--       "amount": null
+--     }
+--   },
+--   "amount_received": 500000,
+--   "application": null,
+--   "application_fee_amount": null,
+--   "automatic_payment_methods": {
+--     "allow_redirects": "always",
+--     "enabled": true
+--   },
+--   "canceled_at": null,
+--   "cancellation_reason": null,
+--   "capture_method": "automatic",
+--   "client_secret": "pi_3SP7OBGLF9nttjSE1Nx7tkNp_secret_uYs7PToGwS70Q8wvRntL83SI8",
+--   "confirmation_method": "automatic",
+--   "created": 1762113395,
+--   "currency": "xof",
+--   "customer": null,
+--   "description": null,
+--   "id": "pi_3SP7OBGLF9nttjSE1Nx7tkNp",
+--   "invoice": null,
+--   "last_payment_error": null,
+--   "latest_charge": "ch_3SP7OBGLF9nttjSE1AeOe7B0",
+--   "livemode": false,
+--   "metadata": {
+--     "abonnement_client_id": "fac62e59-9f7f-4949-8483-b311f02ffde6",
+--     "client_id": "618eba90-6d17-48e3-a3cf-93a6037e2d85",
+--     "plan_code": "BASIC_MENSUEL"
+--   },
+--   "next_action": null,
+--   "object": "payment_intent",
+--   "on_behalf_of": null,
+--   "payment_method": "pm_1SP7OBGLF9nttjSE3fk4wjyG",
+--   "payment_method_configuration_details": {
+--     "id": "pmc_1RdnsWGLF9nttjSEQy4AYpfB",
+--     "parent": null
+--   },
+--   "payment_method_options": {
+--     "acss_debit": null,
+--     "affirm": null,
+--     "afterpay_clearpay": null,
+--     "alipay": null,
+--     "au_becs_debit": null,
+--     "bacs_debit": null,
+--     "bancontact": null,
+--     "blik": null,
+--     "boleto": null,
+--     "card": {
+--       "capture_method": null,
+--       "installments": null,
+--       "mandate_options": null,
+--       "network": null,
+--       "request_extended_authorization": null,
+--       "request_incremental_authorization": null,
+--       "request_multicapture": null,
+--       "request_overcapture": null,
+--       "request_three_d_secure": "automatic",
+--       "setup_future_usage": null,
+--       "statement_descriptor_suffix_kana": null,
+--       "statement_descriptor_suffix_kanji": null
+--     },
+--     "card_present": null,
+--     "cashapp": null,
+--     "customer_balance": null,
+--     "eps": null,
+--     "fpx": null,
+--     "giropay": null,
+--     "grabpay": null,
+--     "ideal": null,
+--     "interac_present": null,
+--     "klarna": null,
+--     "konbini": null,
+--     "link": {
+--       "capture_method": null,
+--       "persistent_token": null,
+--       "setup_future_usage": null
+--     },
+--     "oxxo": null,
+--     "p24": null,
+--     "paynow": null,
+--     "paypal": null,
+--     "pix": null,
+--     "promptpay": null,
+--     "revolut_pay": null,
+--     "sepa_debit": null,
+--     "sofort": null,
+--     "us_bank_account": null,
+--     "wechat_pay": null,
+--     "zip": null
+--   },
+--   "payment_method_types": [
+--     "card",
+--     "link"
+--   ],
+--   "processing": null,
+--   "receipt_email": null,
+--   "review": null,
+--   "setup_future_usage": null,
+--   "shipping": null,
+--   "source": null,
+--   "statement_descriptor": null,
+--   "statement_descriptor_suffix": null,
+--   "status": "succeeded",
+--   "transfer_data": null,
+--   "transfer_group": null
+-- }',	'XOF',	'pi_3SP7OBGLF9nttjSE1Nx7tkNp',	'CARTE_BANCAIRE',	5000.00,	'pi_3SP7OBGLF9nttjSE1Nx7tkNp',	'PAYE',	'fac62e59-9f7f-4949-8483-b311f02ffde6'),
+-- ('e3075256-a2f6-4ea9-97db-bcc3f04c0853',	'2025-11-02 21:01:40.045493',	'2025-11-02 21:01:40.037949',	'2025-11-02 21:01:40.037941',	'Paiement Stripe réussi - {
+--   "amount": 500000,
+--   "amount_capturable": 0,
+--   "amount_details": {
+--     "tip": {
+--       "amount": null
+--     }
+--   },
+--   "amount_received": 500000,
+--   "application": null,
+--   "application_fee_amount": null,
+--   "automatic_payment_methods": {
+--     "allow_redirects": "always",
+--     "enabled": true
+--   },
+--   "canceled_at": null,
+--   "cancellation_reason": null,
+--   "capture_method": "automatic",
+--   "client_secret": "pi_3SP7T4GLF9nttjSE0wnh2F0Y_secret_NYyLw6jznOHtmgC0GQNrVZ8Zr",
+--   "confirmation_method": "automatic",
+--   "created": 1762113698,
+--   "currency": "xof",
+--   "customer": null,
+--   "description": null,
+--   "id": "pi_3SP7T4GLF9nttjSE0wnh2F0Y",
+--   "invoice": null,
+--   "last_payment_error": null,
+--   "latest_charge": "ch_3SP7T4GLF9nttjSE0rzKWxTi",
+--   "livemode": false,
+--   "metadata": {
+--     "abonnement_client_id": "d897b42e-6121-475d-892f-9134ce6c879b",
+--     "client_id": "435cadcf-1a2d-41bd-a691-0d489155c5e6",
+--     "plan_code": "BASIC_MENSUEL"
+--   },
+--   "next_action": null,
+--   "object": "payment_intent",
+--   "on_behalf_of": null,
+--   "payment_method": "pm_1SP7T4GLF9nttjSEN3L7Akd0",
+--   "payment_method_configuration_details": {
+--     "id": "pmc_1RdnsWGLF9nttjSEQy4AYpfB",
+--     "parent": null
+--   },
+--   "payment_method_options": {
+--     "acss_debit": null,
+--     "affirm": null,
+--     "afterpay_clearpay": null,
+--     "alipay": null,
+--     "au_becs_debit": null,
+--     "bacs_debit": null,
+--     "bancontact": null,
+--     "blik": null,
+--     "boleto": null,
+--     "card": {
+--       "capture_method": null,
+--       "installments": null,
+--       "mandate_options": null,
+--       "network": null,
+--       "request_extended_authorization": null,
+--       "request_incremental_authorization": null,
+--       "request_multicapture": null,
+--       "request_overcapture": null,
+--       "request_three_d_secure": "automatic",
+--       "setup_future_usage": null,
+--       "statement_descriptor_suffix_kana": null,
+--       "statement_descriptor_suffix_kanji": null
+--     },
+--     "card_present": null,
+--     "cashapp": null,
+--     "customer_balance": null,
+--     "eps": null,
+--     "fpx": null,
+--     "giropay": null,
+--     "grabpay": null,
+--     "ideal": null,
+--     "interac_present": null,
+--     "klarna": null,
+--     "konbini": null,
+--     "link": {
+--       "capture_method": null,
+--       "persistent_token": null,
+--       "setup_future_usage": null
+--     },
+--     "oxxo": null,
+--     "p24": null,
+--     "paynow": null,
+--     "paypal": null,
+--     "pix": null,
+--     "promptpay": null,
+--     "revolut_pay": null,
+--     "sepa_debit": null,
+--     "sofort": null,
+--     "us_bank_account": null,
+--     "wechat_pay": null,
+--     "zip": null
+--   },
+--   "payment_method_types": [
+--     "card",
+--     "link"
+--   ],
+--   "processing": null,
+--   "receipt_email": null,
+--   "review": null,
+--   "setup_future_usage": null,
+--   "shipping": null,
+--   "source": null,
+--   "statement_descriptor": null,
+--   "statement_descriptor_suffix": null,
+--   "status": "succeeded",
+--   "transfer_data": null,
+--   "transfer_group": null
+-- }',	'XOF',	'pi_3SP7T4GLF9nttjSE0wnh2F0Y',	'CARTE_BANCAIRE',	5000.00,	'pi_3SP7T4GLF9nttjSE0wnh2F0Y',	'PAYE',	'd897b42e-6121-475d-892f-9134ce6c879b');
 
 DROP TABLE IF EXISTS "plans_abonnement";
 CREATE TABLE "public"."plans_abonnement" (

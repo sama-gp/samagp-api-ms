@@ -53,4 +53,6 @@ public class ClientDTO {
         private int followingCount;
         private int followersCount;
         private boolean following;
+
+
 }

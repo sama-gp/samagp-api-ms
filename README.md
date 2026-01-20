@@ -1,6 +1,5 @@
-![Static Badge](https://img.shields.io/badge/Demo_badge-red)
-
-
+[![SeneGP CI](https://github.com/sama-gp/samagp-api-ms/actions/workflows/ci.yaml/badge.svg?event=check_run)](https://github.com/sama-gp/samagp-api-ms/actions/workflows/ci.yaml)
+[![SeneGP CI](https://github.com/sama-gp/samagp-api-ms/actions/workflows/ci.yaml/badge.svg)](https://github.com/sama-gp/samagp-api-ms/actions/workflows/ci.yaml)
 
 # SAMAGP-API-MS
 

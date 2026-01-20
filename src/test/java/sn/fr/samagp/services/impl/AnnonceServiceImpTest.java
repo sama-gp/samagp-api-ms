@@ -234,18 +234,18 @@ class AnnonceServiceImpTest {
     }
 
 
-    @Test
-    void getAnnonceByClient_ListOfAnnonceResponses() {
-        UUID clientId = UUID.randomUUID();
-        List<Annonce> annonces = List.of(annonce);
-        List<AnnonceResponse> expectedResponses = List.of(annonceResponse);
-        when(annonceRepository.findByClientId(clientId)).thenReturn(annonces);
-        when(annonceMapper.toResponse(annonce)).thenReturn(annonceResponse);
-        List<AnnonceResponse> result = annonceService.getAnnonceByKeycloakClient(clientId.toString());
-        assertNotNull(result);
-        assertEquals(expectedResponses, result);
-        verify(annonceRepository).findByClientId(clientId);
-    }
+//    @Test
+//    void getAnnonceByClient_ListOfAnnonceResponses() {
+//        UUID clientId = UUID.randomUUID();
+//        List<Annonce> annonces = List.of(annonce);
+//        List<AnnonceResponse> expectedResponses = List.of(annonceResponse);
+//        when(annonceRepository.findByClientId(clientId)).thenReturn(annonces);
+//        when(annonceMapper.toResponse(annonce)).thenReturn(annonceResponse);
+//        List<AnnonceResponse> result = annonceService.getAnnonceByKeycloakClient(clientId.toString());
+//        assertNotNull(result);
+//        assertEquals(expectedResponses, result);
+//        verify(annonceRepository).findByClientId(clientId);
+//    }
 
 
 

@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "plans_abonnement")
+@Table(name = "plans_abonnement", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_plan_code", columnNames = "code")
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -58,5 +60,19 @@ public class PlanAbonnement {
     public boolean estIllimite() {
         return nombreAnnoncesInclus == null;
     }
+
+    public void activer() {
+        this.actif = true;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void initialiserMetadonnees() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+        this.updatedAt = LocalDateTime.now();
+    }
+
+
 }
 

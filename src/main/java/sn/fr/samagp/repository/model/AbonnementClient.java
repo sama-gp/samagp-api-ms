@@ -62,5 +62,18 @@ public class AbonnementClient {
         if (annoncesUtilisees == null) annoncesUtilisees = 0;
         annoncesUtilisees++;
     }
+
+    public boolean estExpire() {
+        return LocalDateTime.now().isAfter(dateFin);
+    }
+    public void renouveler(LocalDateTime nouvelleDateFin) {
+        this.dateFin = nouvelleDateFin;
+        this.statut = StatutAbonnement.ACTIF;
+
+    }
+
+    public void annuler() {
+        this.statut = StatutAbonnement.ANNULE;
+    }
 }
 

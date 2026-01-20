@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -35,6 +36,18 @@ public class Commentaire {
     @JoinColumn(name = "client_id", nullable = false)
     @NotNull(message = "L'auteur du commentaire est obligatoire")
     private Client auteur;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Commentaire that = (Commentaire) o;
+        return Objects.equals(id, that.id) && Objects.equals(contenu, that.contenu) && Objects.equals(annonce, that.annonce) && Objects.equals(auteur, that.auteur) && Objects.equals(dateCreation, that.dateCreation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, contenu, annonce, auteur, dateCreation);
+    }
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

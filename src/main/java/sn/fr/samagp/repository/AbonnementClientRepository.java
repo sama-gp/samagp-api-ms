@@ -24,4 +24,10 @@ public interface AbonnementClientRepository extends JpaRepository<AbonnementClie
 
     Long countByStatut(StatutAbonnement statut);
     List<AbonnementClient> findByClientId(UUID clientId);
+
+    @Query("SELECT a FROM AbonnementClient a " +
+            "WHERE a.statut = 'ACTIF' " +
+            "AND a.dateFin BETWEEN CURRENT_TIMESTAMP AND :dateLimit")
+    List<AbonnementClient> findAbonnementsExpirantAvant(@Param("dateLimit") LocalDateTime dateLimit);
+
 }

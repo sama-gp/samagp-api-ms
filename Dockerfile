@@ -80,25 +80,36 @@
 #
 #CMD ["java", "-jar", "samagp-api-ms.jar"]
 
-# Stage 1: Build the JAR file
+# ---------- Stage 1: Build ----------
 FROM maven:3.9-eclipse-temurin-17-alpine AS build
+
 WORKDIR /app
+
 COPY pom.xml .
+RUN mvn dependency:go-offline
+
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the JAR file
-FROM openjdk:17-jdk-slim
-# Création d'un utilisateur non-root
+
+# ---------- Stage 2: Runtime ----------
+FROM eclipse-temurin:17-jre-jammy
+
+# Utilisateur non-root (bonne pratique sécurité)
 RUN useradd -m samagp
+
 WORKDIR /app
+
 COPY --from=build /app/target/*.jar app.jar
+
 RUN chown -R samagp:samagp /app
 USER samagp
-# Variables d'environnement
+
+# Variables d'environnement (OK)
 ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/samagp
 ENV SPRING_DATASOURCE_USERNAME=postgres
 ENV SPRING_DATASOURCE_PASSWORD=postgres
 
 EXPOSE 8082
+
 ENTRYPOINT ["java", "-jar", "app.jar"]

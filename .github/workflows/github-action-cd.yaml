@@ -1,0 +1,57 @@
+name: SeneGP CD Docker
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Env cible : staging ou prod"
+        required: true
+        type: choice
+        options:
+          - staging
+          - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Determine Latest Version
+        id: version
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest \
+                    | jq -r '.tag_name' | sed 's/^v//')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Pull Docker Image
+        run: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/senegp:$VERSION
+
+#      - name: Deploy to VM
+#        run: |
+#          ENV=${{ github.event.inputs.environment }}
+#          HOST="your.vm.${ENV}.example.com"
+#
+#          # Backup actuel pour rollback
+#          docker stop senegp || true
+#          docker tag senegp senegp:rollback || true
+#
+#          # Run new version
+#          docker run -d --name senegp -p 8080:8080 \
+#            ${{ secrets.DOCKERHUB_USERNAME }}/senegp:$VERSION
+#
+#      - name: Smoke Test
+#        run: |
+#          curl -f http://your.vm.${{ github.event.inputs.environment }}:8080/health || exit 1
+#
+#      - name: Rollback if failed
+#        if: failure()
+#        run: |
+#          echo "Déploiement échoué → rollback..."
+#          docker stop senegp || true
+#          docker rm senegp || true
+#          docker run -d --name senegp -p 8080:8080 senegp:rollback

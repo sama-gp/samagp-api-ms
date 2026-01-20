@@ -86,18 +86,7 @@ public class GlobalExceptionHandler {
         return buildResponse("Validation constraints violated", HttpStatus.BAD_REQUEST, request, errors);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        Map<String, String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .collect(Collectors.toMap(
-                        FieldError::getField,
-                        error -> error.getDefaultMessage() != null ? error.getDefaultMessage() : "Invalid value"
-                ));
 
-        return buildResponse("Validation failed", HttpStatus.BAD_REQUEST, request, errors);
-    }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ApiError> handleTypeMismatch(MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
@@ -156,17 +145,17 @@ public class GlobalExceptionHandler {
         ex.printStackTrace();
         return buildResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR, request, ex.getMessage());
     }
-    @ExceptionHandler(FileStorageException.class)
+    @ExceptionHandler(KeycloakServiceException.class)
     public ResponseEntity<ApiError> handleKeycloackService(KeycloakServiceException ex, HttpServletRequest request) {
         String message = String.format("Unexpected error occurred with file type: Error => %s", ex.getMessage());
         return buildResponse(message, HttpStatus.INTERNAL_SERVER_ERROR, request, null);
     }
-    @ExceptionHandler(FileStorageException.class)
+    @ExceptionHandler(SamaGPException.class)
     public ResponseEntity<ApiError> handleSamaGPException(SamaGPException ex, HttpServletRequest request) {
         String message = String.format("Unexpected error occurred with file type: Error => %s", ex.getMessage());
         return buildResponse(message, HttpStatus.INTERNAL_SERVER_ERROR, request, null);
     }
-    @ExceptionHandler(FileStorageException.class)
+    @ExceptionHandler(StripePaymentException.class)
     public ResponseEntity<ApiError> handleStripePayment(StripePaymentException ex, HttpServletRequest request) {
         String message = String.format("Unexpected error occurred with file type: Error => %s", ex.getMessage());
         return buildResponse(message, HttpStatus.INTERNAL_SERVER_ERROR, request, null);
@@ -177,7 +166,14 @@ public class GlobalExceptionHandler {
         return buildResponse(message, HttpStatus.INTERNAL_SERVER_ERROR, request, null);
     }
 
+    @ExceptionHandler(PlanAbonnementAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handlePlanAlreadyExists(
+            PlanAbonnementAlreadyExistsException ex, HttpServletRequest request
+    ) {
+        String message = String.format("Plan already exist, Error: %s", ex.getMessage());
 
+        return buildResponse(message, HttpStatus.CONFLICT, request, null);
+    }
 
     private ResponseEntity<ApiError> buildResponse(String message, HttpStatus status, HttpServletRequest request, Object details) {
         ApiError error = new ApiError(

@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import sn.fr.samagp.controller.response.AbonnementResponseDTO;
 import sn.fr.samagp.controller.response.AbonnementStatsDTO;
 import sn.fr.samagp.controller.response.StripePaymentResponse;
+import sn.fr.samagp.exceptions.BusinessException;
+import sn.fr.samagp.exceptions.PlanAbonnementAlreadyExistsException;
 import sn.fr.samagp.mapper.AbonnementMapper;
 import sn.fr.samagp.repository.*;
 import sn.fr.samagp.repository.dto.*;
@@ -46,12 +48,9 @@ public class AbonnementServiceImpl implements IAbonnementService {
     public PlanAbonnementDTO creerPlan(PlanAbonnementRequestDTO request) {
         log.info("Création d'un nouveau plan d'abonnement: {}", request.code());
 
-        if (planAbonnementRepository.findByCode(request.code()).isPresent()) {
-            throw new RuntimeException("Un plan avec le code " + request.code() + " existe déjà");
-        }
+        validerNouveauPlan(request);
 
-        PlanAbonnement plan = abonnementMapper.toEntity(request);
-        plan.setActif(true);
+        PlanAbonnement plan = creerDepuisRequest(request);
 
         PlanAbonnement savedPlan = planAbonnementRepository.save(plan);
         log.info("Plan créé avec succès: {}", savedPlan.getId());
@@ -383,5 +382,42 @@ public class AbonnementServiceImpl implements IAbonnementService {
     private String genererReferencePaiement() {
         return "PAY-" + System.currentTimeMillis() + "-" +
                 UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    }
+
+    private void validerNouveauPlan(PlanAbonnementRequestDTO request) {
+        validerCodeUnique(request.code());
+        validerPrix(request.prix());
+        validerNombreAnnonces(request.nombreAnnoncesInclus());
+    }
+
+    private void validerCodeUnique(String code) {
+        if (planAbonnementRepository.findByCode(code).isPresent()){
+            throw new PlanAbonnementAlreadyExistsException(
+                    "Un plan avec le code " + code + " existe déjà"
+            );
+        }
+    }
+
+    private void validerPrix(BigDecimal prix) {
+        if (prix.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BusinessException("Le prix doit être strictement positif");
+        }
+    }
+
+    private void validerNombreAnnonces(Integer nombre) {
+        if (nombre != null && nombre < 0) {
+            throw new BusinessException(
+                    "Le nombre d'annonces ne peut pas être négatif"
+            );
+        }
+    }
+
+    private PlanAbonnement creerDepuisRequest(PlanAbonnementRequestDTO request) {
+        PlanAbonnement plan = abonnementMapper.toEntity(request);
+
+        plan.activer();
+        plan.initialiserMetadonnees();
+
+        return plan;
     }
 }
